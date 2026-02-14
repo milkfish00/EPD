@@ -51,7 +51,17 @@ const HomePage = () => {
     fetch(form.action, {
       method: "POST",
       body: formData,
+      headers: {
+        Accept: "application/json",
+        "X-AJAX": "true",
+      },
     })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Form submission failed");
+      })
       .then(() => {
         setIsSubmitting(false);
         setIsSubmitted(true);
@@ -59,7 +69,9 @@ const HomePage = () => {
       .catch((error) => {
         console.error("Form submission error:", error);
         setIsSubmitting(false);
-        setIsSubmitted(true); // Show thank you anyway
+        alert(
+          "There was an error submitting the form. Please try again later.",
+        );
       });
   };
 
@@ -543,7 +555,7 @@ const HomePage = () => {
                 <div
                   className="min-h-[600px] flex items-center justify-center p-2 relative"
                   style={{
-                    backgroundImage: "url('/images/flowers3.JPG')",
+                    backgroundImage: "url('/images/flowers4.jpg')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}>
@@ -644,7 +656,25 @@ const HomePage = () => {
 
                 <div>
                   <p className="font-semibold mb-1">Email</p>
-                  <p>hello@emilypagedesigns.com</p>
+                  <p
+                    className="cursor-pointer hover:opacity-70 transition-opacity relative group"
+                    onClick={() => {
+                      navigator.clipboard.writeText("Emilyphinkle@gmail.com");
+                      const tooltip = document.getElementById("email-tooltip");
+                      if (tooltip) {
+                        tooltip.classList.remove("opacity-0");
+                        setTimeout(() => {
+                          tooltip.classList.add("opacity-0");
+                        }, 2000);
+                      }
+                    }}>
+                    Emilyphinkle@gmail.com
+                    <span
+                      id="email-tooltip"
+                      className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 transition-opacity pointer-events-none whitespace-nowrap">
+                      Copied!
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -750,7 +780,7 @@ const HomePage = () => {
                   <div
                     className="w-full h-full flex items-center justify-center relative"
                     style={{
-                      backgroundImage: "url('/images/flowers3.JPG')",
+                      backgroundImage: "url('/images/flowers4.JPG')",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}>
