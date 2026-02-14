@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: default;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f3ebde;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+textarea {
+  cursor: text;
+}
+
+.image-transition {
+  transition: opacity 1.5s ease-in-out;
+}
+
+.form-input::placeholder {
+  color: #d4c8b5;
+  opacity: 1;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #8b7e6a;
+}
+
+.form-textarea::placeholder {
+  color: #d4c8b5;
+  opacity: 1;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #8b7e6a;
+}
+
+.srisakdi-regular {
+  font-family: "Srisakdi", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.srisakdi-bold {
+  font-family: "Srisakdi", system-ui;
+  font-weight: 700;
+  font-style: normal;
 }
