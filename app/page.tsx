@@ -740,49 +740,58 @@ const HomePage = () => {
 
             {/* Thank You Card - Separate from form section */}
             {isSubmitted && (
-              <div
-                className="absolute top-0 right-0 w-full h-[700px] flex items-center justify-center transition-all duration-700 z-20 "
-                style={{
-                  backgroundImage: "url('/images/weding2.JPG')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}>
-                <div className="absolute inset-0 bg-black/15" />
-                <div className="relative z-10 text-center px-16">
-                  <h2
-                    className="text-[10rem] uppercase  mb-4 tracking-wide"
+              <div className="absolute top-0 right-0 w-full h-[700px] z-20 transition-all duration-700">
+                <div
+                  className="w-full h-full border p-8"
+                  style={{
+                    backgroundColor: "var(--color-background-light)",
+                    borderColor: "var(--color-border)",
+                  }}>
+                  <div
+                    className="w-full h-full flex items-center justify-center relative"
                     style={{
-                      fontFamily: "var(--font-heading)",
-                      color: "white",
+                      backgroundImage: "url('/images/flowers3.JPG')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
                     }}>
-                    Thank You
-                  </h2>
-                  <p
-                    className="text-lg mb-10 leading-relaxed max-w-md mx-auto"
-                    style={{ color: "white" }}>
-                    Your message has been received. <br />
-                    We'll get back to you soon!
-                  </p>
-                  <button
-                    onClick={resetForm}
-                    className="bg-transparent  border px-16 py-3.5 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300"
-                    style={{
-                      borderColor: "var(--color-heading-secondary)",
-                      color: "var(--color-heading-secondary)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "var(--color-heading-secondary)";
-                      e.currentTarget.style.color =
-                        "var(--color-background-light)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "transparent";
-                      e.currentTarget.style.color =
-                        "var(--color-heading-secondary)";
-                    }}>
-                    SEND ANOTHER MESSAGE
-                  </button>
+                    <div className="absolute inset-0 bg-white/80" />
+                    <div className="relative z-10 text-center px-16">
+                      <h2
+                        className="text-[2.5rem] uppercase mb-6 tracking-wide"
+                        style={{
+                          fontFamily: "var(--font-heading)",
+                          color: "var(--color-heading-primary)",
+                        }}>
+                        Thank You
+                      </h2>
+                      <p
+                        className="text-lg mb-10 leading-relaxed max-w-md mx-auto"
+                        style={{ color: "var(--color-text-primary)" }}>
+                        Your message has been received. <br />
+                        We'll get back to you soon!
+                      </p>
+                      <button
+                        onClick={resetForm}
+                        className="bg-transparent border px-16 py-3.5 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer"
+                        style={{
+                          borderColor: "var(--color-heading-secondary)",
+                          color: "var(--color-heading-secondary)",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor =
+                            "var(--color-heading-secondary)";
+                          e.currentTarget.style.color =
+                            "var(--color-background-light)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.color =
+                            "var(--color-heading-secondary)";
+                        }}>
+                        SEND ANOTHER MESSAGE
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
