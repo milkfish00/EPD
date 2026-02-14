@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const HomePage = () => {
   const images = [
@@ -12,6 +12,26 @@ const HomePage = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const contactRef = useRef<HTMLDivElement | null>(null);
+  const [isContactVisible, setIsContactVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsContactVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (contactRef.current) {
+      observer.observe(contactRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -48,7 +68,7 @@ const HomePage = () => {
   };
 
   return (
-    <>
+    <div className="animate-fade-in">
       {/* Mobile */}
       <section className="lg:hidden h-screen w-full relative overflow-hidden bg-[#e3ddcf] flex justify-center">
         <div className="w-full max-w-[1640px] relative h-full">
@@ -290,7 +310,11 @@ const HomePage = () => {
       <section
         className="w-full py-16 lg:py-24 px-6 lg:px-20 flex justify-center"
         style={{ backgroundColor: "var(--color-background)" }}>
-        <div className="max-w-6xl w-full">
+        <div
+          ref={contactRef}
+          className={`max-w-6xl w-full ${
+            isContactVisible ? "animate-fade-in" : "opacity-0"
+          }`}>
           {/* Mobile Layout */}
           <div className="lg:hidden">
             <div
@@ -765,7 +789,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
