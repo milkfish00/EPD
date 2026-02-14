@@ -2,13 +2,21 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const HomePage = () => {
-  const images = [
+  const [images, setImages] = useState([
+    "/images/flowers1.jpg",
     "/images/flowers2.JPG",
-    "/images/wedding2.jpg",
+    "/images/weding2.jpg",
     "/images/flowers3.JPG",
-    "/images/wedding2.jpg",
+    "/images/flowers4.JPG",
     "/images/flowers5.png",
-  ];
+    "/images/flowers7.png",
+    "/images/wedding2.jpg",
+  ]);
+
+  useEffect(() => {
+    setImages((prev) => [...prev].sort(() => Math.random() - 0.5));
+  }, []);
+
   const [currentImage, setCurrentImage] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
