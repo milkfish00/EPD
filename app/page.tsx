@@ -10,11 +10,8 @@ const HomePage = () => {
     "/images/flowers5.png",
   ];
   const [currentImage, setCurrentImage] = useState(0);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,16 +22,41 @@ const HomePage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Submit the form
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+        "X-AJAX": "true",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Form submission failed");
+      })
+      .then(() => {
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+      })
+      .catch((error) => {
+        console.error("Form submission error:", error);
+        setIsSubmitting(false);
+        alert(
+          "There was an error submitting the form. Please try again later.",
+        );
+      });
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const resetForm = () => {
+    setIsSubmitted(false);
   };
 
   return (
@@ -284,210 +306,279 @@ const HomePage = () => {
           {/* Mobile Layout */}
           <div className="lg:hidden">
             <div
-              className="border p-8 flex flex-col"
+              className="border p-8 flex flex-col relative overflow-hidden"
               style={{
                 backgroundColor: "var(--color-background-light)",
                 borderColor: "var(--color-border)",
               }}>
-              <div className="mb-12">
-                <h2
-                  className="text-xl uppercase mb-6 text-center"
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    color: "var(--color-heading-primary)",
-                  }}>
-                  Get in Touch
-                </h2>
-                <p
-                  className="text-sm text-center leading-relaxed"
-                  style={{ color: "var(--color-text-primary)" }}>
-                  Etiam vehicula tellus enim, ut vehicula lorem auctor id.
-                  Aliquam dictum turpis nec leo aliquam faucibus.
-                </p>
-              </div>
+              {/* Form */}
+              {!isSubmitted && (
+                <div>
+                  <div className="mb-12">
+                    <h2
+                      className="text-xl uppercase mb-6 text-center"
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        color: "var(--color-heading-primary)",
+                      }}>
+                      Get in Touch
+                    </h2>
+                    <p
+                      className="text-sm text-center leading-relaxed"
+                      style={{ color: "var(--color-text-primary)" }}>
+                      Etiam vehicula tellus enim, ut vehicula lorem auctor id.
+                      Aliquam dictum turpis nec leo aliquam faucibus.
+                    </p>
+                  </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6 w-full mb-12">
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Name"
-                  required
-                  className="form-input w-full bg-transparent border-b pb-2 text-sm"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    color: "var(--color-text-primary)",
-                  }}
-                />
+                  <form
+                    action="https://www.form-to-email.com/api/s/zE_5D-vRYdrj"
+                    method="POST"
+                    encType="multipart/form-data"
+                    onSubmit={handleSubmit}
+                    className="space-y-6 w-full mb-12">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      required
+                      className="form-input w-full bg-transparent border-b pb-2 text-sm"
+                      style={{
+                        borderColor: "var(--color-border)",
+                        color: "var(--color-text-primary)",
+                      }}
+                    />
 
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  required
-                  className="form-input w-full bg-transparent border-b pb-2 text-sm"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    color: "var(--color-text-primary)",
-                  }}
-                />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      required
+                      className="form-input w-full bg-transparent border-b pb-2 text-sm"
+                      style={{
+                        borderColor: "var(--color-border)",
+                        color: "var(--color-text-primary)",
+                      }}
+                    />
 
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Message"
-                  required
-                  rows={6}
-                  className="form-textarea w-full bg-transparent border-b pb-2 text-sm resize-none"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    color: "var(--color-text-primary)",
-                  }}
-                />
+                    <textarea
+                      name="message"
+                      placeholder="Message"
+                      required
+                      rows={6}
+                      className="form-textarea w-full bg-transparent border-b pb-2 text-sm resize-none"
+                      style={{
+                        borderColor: "var(--color-border)",
+                        color: "var(--color-text-primary)",
+                      }}
+                    />
 
-                <div className="flex justify-center pt-4">
-                  <button
-                    type="submit"
-                    className="bg-transparent border px-12 py-3 text-xs uppercase tracking-[0.24em] transition-all duration-300"
-                    style={{
-                      borderColor: "var(--color-heading-secondary)",
-                      color: "var(--color-heading-secondary)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "var(--color-heading-secondary)";
-                      e.currentTarget.style.color =
-                        "var(--color-background-light)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "transparent";
-                      e.currentTarget.style.color =
-                        "var(--color-heading-secondary)";
-                    }}>
-                    Send
-                  </button>
+                    <div className="flex justify-center pt-4">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="bg-transparent border px-12 py-3 text-xs uppercase tracking-[0.24em] transition-all duration-300"
+                        style={{
+                          borderColor: "var(--color-heading-secondary)",
+                          color: "var(--color-heading-secondary)",
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isSubmitting) {
+                            e.currentTarget.style.backgroundColor =
+                              "var(--color-heading-secondary)";
+                            e.currentTarget.style.color =
+                              "var(--color-background-light)";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.color =
+                            "var(--color-heading-secondary)";
+                        }}>
+                        {isSubmitting ? "Sending..." : "Send"}
+                      </button>
+                    </div>
+                  </form>
+
+                  <div className="flex justify-center gap-6">
+                    <a
+                      href="#"
+                      aria-label="Instagram"
+                      className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
+                      style={{ borderColor: "var(--color-border)" }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.borderColor =
+                          "var(--color-border-hover)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.borderColor =
+                          "var(--color-border)")
+                      }>
+                      <svg
+                        aria-hidden="true"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ color: "var(--color-text-tertiary)" }}>
+                        <rect
+                          x="4"
+                          y="4"
+                          width="16"
+                          height="16"
+                          rx="5"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                        />
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="3.2"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                        />
+                        <circle
+                          cx="16.8"
+                          cy="7.4"
+                          r="0.8"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                    <a
+                      href="#"
+                      aria-label="Pinterest"
+                      className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
+                      style={{ borderColor: "var(--color-border)" }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.borderColor =
+                          "var(--color-border-hover)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.borderColor =
+                          "var(--color-border)")
+                      }>
+                      <svg
+                        aria-hidden="true"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ color: "var(--color-text-tertiary)" }}>
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="7.5"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                        />
+                        <path
+                          d="M11.5 17.5C11.8 16.1 12.3 14 12.3 14C12.5 14.3 13.1 14.6 13.7 14.6C15.3 14.6 16.5 13.3 16.5 11.6C16.5 9.7 15 8.5 13.1 8.5C10.9 8.5 9.5 9.9 9.5 11.8C9.5 12.7 9.9 13.4 10.6 13.8L10.1 15.8"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </a>
+                    <a
+                      href="#"
+                      aria-label="LinkedIn"
+                      className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
+                      style={{ borderColor: "var(--color-border)" }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.borderColor =
+                          "var(--color-border-hover)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.borderColor =
+                          "var(--color-border)")
+                      }>
+                      <svg
+                        aria-hidden="true"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ color: "var(--color-text-tertiary)" }}>
+                        <rect
+                          x="4"
+                          y="4"
+                          width="16"
+                          height="16"
+                          rx="2"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                        />
+                        <path
+                          d="M8 17V11M8 9V8.5M11 17V13.2C11 12.2 11.8 11.4 12.8 11.4C13.8 11.4 14.6 12.2 14.6 13.2V17"
+                          stroke="currentColor"
+                          strokeWidth="1.2"
+                          strokeLinecap="round"
+                        />
+                        <circle cx="8" cy="8.2" r="0.8" fill="currentColor" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-              </form>
+              )}
 
-              <div className="flex justify-center gap-6">
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
-                  style={{ borderColor: "var(--color-border)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor =
-                      "var(--color-border-hover)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--color-border)")
-                  }>
-                  <svg
-                    aria-hidden="true"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ color: "var(--color-text-tertiary)" }}>
-                    <rect
-                      x="4"
-                      y="4"
-                      width="16"
-                      height="16"
-                      rx="5"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
+              {/* Thank You Card */}
+              {isSubmitted && (
+                <div
+                  className="min-h-[600px] flex items-center justify-center p-8"
+                  style={{
+                    backgroundImage: "url('/images/flowers3.JPG')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}>
+                  <div className="absolute inset-0 bg-white/80" />
+                  <div className="relative z-10 text-center">
+                    <img
+                      src="/images/leaf.svg"
+                      className="h-32 mx-auto mb-6 opacity-40"
+                      alt="Leaf icon"
                     />
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="3.2"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                    />
-                    <circle cx="16.8" cy="7.4" r="0.8" fill="currentColor" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  aria-label="Pinterest"
-                  className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
-                  style={{ borderColor: "var(--color-border)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor =
-                      "var(--color-border-hover)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--color-border)")
-                  }>
-                  <svg
-                    aria-hidden="true"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ color: "var(--color-text-tertiary)" }}>
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="7.5"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                    />
-                    <path
-                      d="M11.5 17.5C11.8 16.1 12.3 14 12.3 14C12.5 14.3 13.1 14.6 13.7 14.6C15.3 14.6 16.5 13.3 16.5 11.6C16.5 9.7 15 8.5 13.1 8.5C10.9 8.5 9.5 9.9 9.5 11.8C9.5 12.7 9.9 13.4 10.6 13.8L10.1 15.8"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  aria-label="LinkedIn"
-                  className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
-                  style={{ borderColor: "var(--color-border)" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor =
-                      "var(--color-border-hover)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.borderColor = "var(--color-border)")
-                  }>
-                  <svg
-                    aria-hidden="true"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ color: "var(--color-text-tertiary)" }}>
-                    <rect
-                      x="4"
-                      y="4"
-                      width="16"
-                      height="16"
-                      rx="2"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                    />
-                    <path
-                      d="M8 17V11M8 9V8.5M11 17V13.2C11 12.2 11.8 11.4 12.8 11.4C13.8 11.4 14.6 12.2 14.6 13.2V17"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                      strokeLinecap="round"
-                    />
-                    <circle cx="8" cy="8.2" r="0.8" fill="currentColor" />
-                  </svg>
-                </a>
-              </div>
+                    <h3
+                      className="text-2xl uppercase mb-4"
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        color: "var(--color-heading-primary)",
+                      }}>
+                      Thank You
+                    </h3>
+                    <p
+                      className="text-sm mb-8 leading-relaxed"
+                      style={{ color: "var(--color-text-primary)" }}>
+                      Your message has been received. <br />
+                      We'll get back to you soon!
+                    </p>
+                    <button
+                      onClick={resetForm}
+                      className="bg-transparent border px-8 py-2 text-xs uppercase tracking-[0.24em] transition-all duration-300"
+                      style={{
+                        borderColor: "var(--color-heading-secondary)",
+                        color: "var(--color-heading-secondary)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          "var(--color-heading-secondary)";
+                        e.currentTarget.style.color =
+                          "var(--color-background-light)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.color =
+                          "var(--color-heading-secondary)";
+                      }}>
+                      Send Another
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -495,7 +586,7 @@ const HomePage = () => {
           <div className="hidden lg:flex lg:flex-row lg:gap-0 relative">
             {/* Stamp (postcard style) */}
             <div
-              className="hidden lg:flex absolute top-4 right-6 w-24 h-24 border border-dashed items-center justify-center z-10"
+              className="hidden lg:flex absolute top-4 right-6 w-24 h-24 border border-dashed items-center justify-center z-10 pointer-events-none"
               style={{ borderColor: "#d4b1b1" }}>
               <img
                 src="/images/lilly.png"
@@ -506,7 +597,9 @@ const HomePage = () => {
 
             {/* Left Side - Description */}
             <div
-              className="border border-r-0 px-16 py-20 flex flex-col justify-between items-center shadow-sm h-[700px] w-1/2 border-r-1 border-r-dashed"
+              className={`border border-r-0 px-16 py-20 flex flex-col justify-between items-center shadow-sm h-[700px] w-1/2 border-r-1 border-r-dashed transition-all duration-700 ${
+                isSubmitted ? "opacity-0" : "opacity-100"
+              }`}
               style={{
                 backgroundColor: "var(--color-background-light)",
                 borderColor: "var(--color-border)",
@@ -546,60 +639,128 @@ const HomePage = () => {
 
             {/* Right Side - Form */}
             <div
-              className="border border-l-0 px-16 py-20 flex items-end h-[700px] w-1/2"
+              className="border border-l-0 px-16 py-20 flex items-end h-[700px] w-1/2 relative overflow-hidden"
               style={{
                 backgroundColor: "var(--color-background-light)",
                 borderColor: "var(--color-border)",
               }}>
-              <form
-                onSubmit={handleSubmit}
-                className="w-full max-w-2xl space-y-10">
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Name"
-                  required
-                  className="form-input w-full bg-transparent border-b pb-3 text-[0.95rem]"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    color: "var(--color-text-primary)",
-                  }}
-                />
+              {/* Form */}
+              <div
+                className={`w-full max-w-2xl transition-all duration-700 ${
+                  isSubmitted
+                    ? "opacity-0 translate-y-[50px] pointer-events-none"
+                    : "opacity-100 translate-y-0"
+                }`}>
+                <form
+                  action="https://www.form-to-email.com/api/s/zE_5D-vRYdrj"
+                  method="POST"
+                  encType="multipart/form-data"
+                  onSubmit={handleSubmit}
+                  className="w-full space-y-10">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    required
+                    className="form-input w-full bg-transparent border-b pb-3 text-[0.95rem]"
+                    style={{
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text-primary)",
+                    }}
+                  />
 
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  required
-                  className="form-input w-full bg-transparent border-b pb-3 text-[0.95rem]"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    color: "var(--color-text-primary)",
-                  }}
-                />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    className="form-input w-full bg-transparent border-b pb-3 text-[0.95rem]"
+                    style={{
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text-primary)",
+                    }}
+                  />
 
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Message"
-                  required
-                  rows={4}
-                  className="form-textarea w-full bg-transparent border-b pb-3 text-[0.95rem] resize-none"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    color: "var(--color-text-primary)",
-                  }}
-                />
+                  <textarea
+                    name="message"
+                    placeholder="Message"
+                    required
+                    rows={4}
+                    className="form-textarea w-full bg-transparent border-b pb-3 text-[0.95rem] resize-none"
+                    style={{
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text-primary)",
+                    }}
+                  />
 
-                <div className="flex justify-end pt-6">
+                  <div className="flex justify-end pt-6">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="bg-transparent border px-20 py-3.5 text-[0.7rem] uppercase transition-all duration-300"
+                      style={{
+                        borderColor: "var(--color-heading-secondary)",
+                        color: "var(--color-heading-secondary)",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isSubmitting) {
+                          e.currentTarget.style.backgroundColor =
+                            "var(--color-heading-secondary)";
+                          e.currentTarget.style.color =
+                            "var(--color-background-light)";
+                          e.currentTarget.style.borderColor =
+                            "var(--color-heading-secondary)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.color =
+                          "var(--color-heading-secondary)";
+                        e.currentTarget.style.borderColor =
+                          "var(--color-heading-secondary)";
+                      }}>
+                      {isSubmitting ? "SENDING..." : "SEND"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            {/* Thank You Card - Separate from form section */}
+            {isSubmitted && (
+              <div
+                className="absolute top-0 right-0 w-full h-[700px] flex items-center justify-center transition-all duration-700  z-20"
+                style={{
+                  backgroundColor: "var(--color-background-light)",
+                  borderColor: "var(--color-border)",
+                  backgroundImage: "url('/images/flowers3.JPG')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}>
+                <div className="absolute inset-0 bg-white/85" />
+                <div className="relative z-10 text-center px-16">
+                  <img
+                    src="/images/leaf.svg"
+                    className="h-48 mx-auto mb-8 opacity-30"
+                    alt="Leaf icon"
+                  />
+                  <h2
+                    className="text-[2.5rem] uppercase mb-6 tracking-wide"
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      color: "var(--color-heading-primary)",
+                    }}>
+                    Thank You
+                  </h2>
+                  <p
+                    className="text-lg mb-10 leading-relaxed max-w-md mx-auto"
+                    style={{ color: "var(--color-text-primary)" }}>
+                    Your message has been received. <br />
+                    We'll get back to you soon!
+                  </p>
                   <button
-                    type="submit"
-                    className="bg-transparent border px-20 py-3.5 text-[0.7rem] uppercase transition-all duration-300"
+                    onClick={resetForm}
+                    className="bg-transparent border px-16 py-3.5 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300"
                     style={{
                       borderColor: "var(--color-heading-secondary)",
                       color: "var(--color-heading-secondary)",
@@ -609,21 +770,17 @@ const HomePage = () => {
                         "var(--color-heading-secondary)";
                       e.currentTarget.style.color =
                         "var(--color-background-light)";
-                      e.currentTarget.style.borderColor =
-                        "var(--color-heading-secondary)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.backgroundColor = "transparent";
                       e.currentTarget.style.color =
                         "var(--color-heading-secondary)";
-                      e.currentTarget.style.borderColor =
-                        "var(--color-heading-secondary)";
                     }}>
-                    SEND
+                    SEND ANOTHER MESSAGE
                   </button>
                 </div>
-              </form>
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
