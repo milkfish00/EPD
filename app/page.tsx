@@ -148,7 +148,7 @@ const HomePage = () => {
           <div className="absolute inset-0 bg-[#c7a58c]/35 mix-blend-multiply" />
         </section>
 
-        <section className="w-1/4 h-full bg-[#f3ebdf] flex flex-col justify-center items-center px-16 py-14">
+        <section className="w-1/4 h-full bg-[#f3ebdf] flex flex-col justify-center items-center px-4 py-14">
           <div className="flex-1 flex items-start justify-center w-full">
             <img
               src="/images/leaf.svg"
@@ -159,8 +159,8 @@ const HomePage = () => {
 
           <div className="flex flex-col items-center justify-center w-full mb-10">
             <h1
-              className="text-2xl text-center tracking-[0.32em] mb-3 text-[#4f4a34]"
-              style={{ fontFamily: "'Playfair Display', serif" }}>
+              className="text-3xl text-center  mb-3 text-[#4f4a34]"
+              style={{ fontFamily: "'Baskerville', serif" }}>
               EMILY PAGE DESIGNS
             </h1>
             <p
@@ -456,11 +456,11 @@ const HomePage = () => {
             {/* Left Side - Description */}
             <div className="bg-[#f9f5ee] border border-r-0 border-[#d4c8b5] p-14 flex flex-col justify-between shadow-sm min-h-[80vh] w-[44%]">
               <div className="flex justify-center mb-12">
-                <img
-                  src="/images/logo.svg"
-                  alt="Emily Page Designs logo"
-                  className="h-10 lg:h-12 w-44 object-contain"
-                />
+                <h1
+                  className="text-3xl text-center  mb-3 text-[#4f4a34] opacity-60 "
+                  style={{ fontFamily: "'Baskerville', serif" }}>
+                  EMILY PAGE DESIGNS
+                </h1>
               </div>
 
               <p
