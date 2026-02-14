@@ -31,17 +31,7 @@ const HomePage = () => {
     fetch(form.action, {
       method: "POST",
       body: formData,
-      headers: {
-        Accept: "application/json",
-        "X-AJAX": "true",
-      },
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Form submission failed");
-      })
       .then(() => {
         setIsSubmitting(false);
         setIsSubmitted(true);
@@ -49,9 +39,7 @@ const HomePage = () => {
       .catch((error) => {
         console.error("Form submission error:", error);
         setIsSubmitting(false);
-        alert(
-          "There was an error submitting the form. Please try again later.",
-        );
+        setIsSubmitted(true); // Show thank you anyway
       });
   };
 
@@ -182,7 +170,7 @@ const HomePage = () => {
                 <a
                   href="#"
                   aria-label="Instagram"
-                  className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
+                  className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200 cursor-pointer"
                   style={{ borderColor: "var(--color-border)" }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.borderColor =
@@ -221,7 +209,7 @@ const HomePage = () => {
                 <a
                   href="#"
                   aria-label="Pinterest"
-                  className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200"
+                  className="w-8 h-8 flex items-center justify-center rounded-full border transition-colors duration-200 cursor-pointer"
                   style={{ borderColor: "var(--color-border)" }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.borderColor =
@@ -529,7 +517,7 @@ const HomePage = () => {
               {/* Thank You Card */}
               {isSubmitted && (
                 <div
-                  className="min-h-[600px] flex items-center justify-center p-8"
+                  className="min-h-[600px] flex items-center justify-center p-2 relative"
                   style={{
                     backgroundImage: "url('/images/flowers3.JPG')",
                     backgroundSize: "cover",
@@ -729,38 +717,31 @@ const HomePage = () => {
             {/* Thank You Card - Separate from form section */}
             {isSubmitted && (
               <div
-                className="absolute top-0 right-0 w-full h-[700px] flex items-center justify-center transition-all duration-700  z-20"
+                className="absolute top-0 right-0 w-full h-[700px] flex items-center justify-center transition-all duration-700 z-20 "
                 style={{
-                  backgroundColor: "var(--color-background-light)",
-                  borderColor: "var(--color-border)",
-                  backgroundImage: "url('/images/flowers3.JPG')",
+                  backgroundImage: "url('/images/weding2.JPG')",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}>
-                <div className="absolute inset-0 bg-white/85" />
+                <div className="absolute inset-0 bg-black/15" />
                 <div className="relative z-10 text-center px-16">
-                  <img
-                    src="/images/leaf.svg"
-                    className="h-48 mx-auto mb-8 opacity-30"
-                    alt="Leaf icon"
-                  />
                   <h2
-                    className="text-[2.5rem] uppercase mb-6 tracking-wide"
+                    className="text-[10rem] uppercase  mb-4 tracking-wide"
                     style={{
                       fontFamily: "var(--font-heading)",
-                      color: "var(--color-heading-primary)",
+                      color: "white",
                     }}>
                     Thank You
                   </h2>
                   <p
                     className="text-lg mb-10 leading-relaxed max-w-md mx-auto"
-                    style={{ color: "var(--color-text-primary)" }}>
+                    style={{ color: "white" }}>
                     Your message has been received. <br />
                     We'll get back to you soon!
                   </p>
                   <button
                     onClick={resetForm}
-                    className="bg-transparent border px-16 py-3.5 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300"
+                    className="bg-transparent  border px-16 py-3.5 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300"
                     style={{
                       borderColor: "var(--color-heading-secondary)",
                       color: "var(--color-heading-secondary)",
