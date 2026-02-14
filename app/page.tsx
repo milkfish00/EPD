@@ -555,7 +555,7 @@ const HomePage = () => {
                 <div
                   className="min-h-[600px] flex items-center justify-center p-2 relative"
                   style={{
-                    backgroundImage: "url('/images/flowers4.jpg')",
+                    backgroundImage: "url('/images/flowers4.JPG')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}>
@@ -769,62 +769,65 @@ const HomePage = () => {
             </div>
 
             {/* Thank You Card - Separate from form section */}
-            {isSubmitted && (
-              <div className="absolute top-0 right-0 w-full h-[700px] z-20 transition-all duration-700">
+            <div
+              className={`absolute top-0 right-0 w-full h-[700px] z-20 transition-all duration-700 ${
+                isSubmitted
+                  ? "opacity-100 pointer-events-auto"
+                  : "opacity-0 pointer-events-none"
+              }`}>
+              <div
+                className="w-full h-full border p-8"
+                style={{
+                  backgroundColor: "var(--color-background-light)",
+                  borderColor: "var(--color-border)",
+                }}>
                 <div
-                  className="w-full h-full border p-8"
+                  className="w-full h-full flex items-center justify-center relative"
                   style={{
-                    backgroundColor: "var(--color-background-light)",
-                    borderColor: "var(--color-border)",
+                    backgroundImage: "url('/images/flowers4.JPG')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
                   }}>
-                  <div
-                    className="w-full h-full flex items-center justify-center relative"
-                    style={{
-                      backgroundImage: "url('/images/flowers4.JPG')",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}>
-                    <div className="absolute inset-0 bg-white/80" />
-                    <div className="relative z-10 text-center px-16">
-                      <h2
-                        className="text-[2.5rem] uppercase mb-6 tracking-wide"
-                        style={{
-                          fontFamily: "var(--font-heading)",
-                          color: "var(--color-heading-primary)",
-                        }}>
-                        Thank You
-                      </h2>
-                      <p
-                        className="text-lg mb-10 leading-relaxed max-w-md mx-auto"
-                        style={{ color: "var(--color-text-primary)" }}>
-                        Your message has been received. <br />
-                        We'll get back to you soon!
-                      </p>
-                      <button
-                        onClick={resetForm}
-                        className="bg-transparent border px-16 py-3.5 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer"
-                        style={{
-                          borderColor: "var(--color-heading-secondary)",
-                          color: "var(--color-heading-secondary)",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor =
-                            "var(--color-heading-secondary)";
-                          e.currentTarget.style.color =
-                            "var(--color-background-light)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = "transparent";
-                          e.currentTarget.style.color =
-                            "var(--color-heading-secondary)";
-                        }}>
-                        SEND ANOTHER MESSAGE
-                      </button>
-                    </div>
+                  <div className="absolute inset-0 bg-white/80" />
+                  <div className="relative z-10 text-center px-16">
+                    <h2
+                      className="text-[2.5rem] uppercase mb-6 tracking-wide"
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        color: "var(--color-heading-primary)",
+                      }}>
+                      Thank You
+                    </h2>
+                    <p
+                      className="text-lg mb-10 leading-relaxed max-w-md mx-auto"
+                      style={{ color: "var(--color-text-primary)" }}>
+                      Your message has been received. <br />
+                      We'll get back to you soon!
+                    </p>
+                    <button
+                      onClick={resetForm}
+                      className="bg-transparent border px-16 py-3.5 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer"
+                      style={{
+                        borderColor: "var(--color-heading-secondary)",
+                        color: "var(--color-heading-secondary)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor =
+                          "var(--color-heading-secondary)";
+                        e.currentTarget.style.color =
+                          "var(--color-background-light)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.color =
+                          "var(--color-heading-secondary)";
+                      }}>
+                      SEND ANOTHER MESSAGE
+                    </button>
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
