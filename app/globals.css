@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+:root {
+  /* Color Palette */
+  --color-heading-primary: #4f4a34;
+  --color-heading-secondary: #8b7355;
+  --color-text-primary: #5b5447;
+  --color-text-secondary: #aca091;
+  --color-text-tertiary: #9a8b7a;
+  --color-accent: #7a7369;
+  --color-border: #d4c8b5;
+  --color-border-hover: #8b7355;
+  --color-background: #f3ebdf;
+  --color-background-light: #f9f5ee;
+  --color-background-overlay: #c7a58c;
+
+  /* Font Families */
+  --font-heading: "Baskerville", serif;
+  --font-body: system-ui, sans-serif;
+}
+
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -7,7 +26,7 @@
 }
 
 body {
-  background-color: #f3ebde;
+  background-color: var(--color-background);
   margin: 0;
   padding: 0;
 }
@@ -22,7 +41,7 @@ textarea {
 }
 
 .form-input::placeholder {
-  color: #d4c8b5;
+  color: var(--color-border);
   opacity: 1;
 }
 
@@ -32,7 +51,7 @@ textarea {
 }
 
 .form-textarea::placeholder {
-  color: #d4c8b5;
+  color: var(--color-border);
   opacity: 1;
 }
 
