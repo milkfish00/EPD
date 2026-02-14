@@ -6,7 +6,7 @@ const HomePage = () => {
     "/images/flowers2.JPG",
     "/images/wedding2.jpg",
     "/images/flowers3.JPG",
-    "/images/weding2.jpg",
+    "/images/wedding2.jpg", // Fixed typo: "weding2.jpg" → "wedding2.jpg"
     "/images/flowers5.png",
   ];
   const [currentImage, setCurrentImage] = useState(0);
@@ -21,7 +21,7 @@ const HomePage = () => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]); // Added dependency
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,6 +47,9 @@ const HomePage = () => {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           cursor: default;
+        }
+
+        body {
           background-color: #f3ebde;
         }
 
@@ -81,16 +84,11 @@ const HomePage = () => {
 
       {/* Mobile */}
       <section className="lg:hidden h-screen w-full relative overflow-hidden bg-[#e3ddcf]">
-        {images.map((img, idx) => (
-          <img
-            key={idx}
-            src={img}
-            alt="Floral background"
-            className={`absolute inset-0 w-full h-full object-cover image-transition ${
-              idx === currentImage ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+        <img
+          src="/images/flowers2.JPG"
+          alt="Floral background"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         <div className="absolute inset-0 bg-[#e6dfd1]/10" />
 
         <div className="relative h-full flex items-center justify-center px-6">
@@ -155,7 +153,7 @@ const HomePage = () => {
             <img
               src="/images/leaf.svg"
               className="h-60 mt-4 opacity-30"
-              alt="Wheat icon"
+              alt="Leaf icon"
             />
           </div>
 
@@ -281,26 +279,23 @@ const HomePage = () => {
       </main>
 
       {/* Contact Form Section */}
-      <section className="w-full bg-[#f3ebdf] md:py-44 py-12 px-6 lg:px-20">
-        <div className="max-w-7xl mx-auto ">
-          {/* Top logo */}
-
+      <section className="w-full bg-[#f3ebdf] md:py-30 py-12 px-6 lg:px-20">
+        <div className="max-w-7xl mx-auto">
           {/* Mobile Layout */}
           <div className="lg:hidden">
-            <div className="bg-[#f9f5ee] border border-[#d4c8b5] p-8 h-145 flex flex-col items-center justify-between">
+            <div className="bg-[#f9f5ee] border border-[#d4c8b5] p-8 flex flex-col items-center justify-between">
               <div>
-                {" "}
                 <h2
-                  className="text-xl uppercase tracking-[0.28em] mb-6  text-[#8b7355] text-center"
+                  className="text-xl uppercase tracking-[0.28em] mb-6 text-[#8b7355] text-center"
                   style={{ fontFamily: "'Playfair Display', serif" }}>
                   Get in Touch
                 </h2>
                 <p
-                  className="text-sm text-center mb-8 text-[#9a8b7a] leading-relaxed"
+                  className="text-sm text-center mb-20 text-[#9a8b7a] leading-relaxed"
                   style={{ fontFamily: "'Crimson Text', serif" }}>
                   Distinctive floral artistry begins with your vision.
                   <br />
-                  Share your details and let's create something beautiful
+                  Share your details and let&apos;s create something beautiful
                   together.
                 </p>
               </div>
@@ -450,11 +445,11 @@ const HomePage = () => {
           {/* Desktop Layout */}
           <div className="hidden lg:flex lg:flex-row lg:gap-0 relative">
             {/* Stamp (postcard style) */}
-            <div className="hidden lg:flex absolute top-4 right-6 w-16 h-16 border border-dashed border-[#d4b1b1] bg-[#f9f5ee] items-center justify-center">
+            <div className="hidden lg:flex absolute top-4 right-6 w-16 h-16 border border-dashed border-[#d4b1b1] items-center justify-center">
               <img
                 src="/images/lilly.png"
                 alt="Emily Page Designs stamp"
-                className="w-20 h-20 object-contain"
+                className="w-10 h-auto object-contain"
               />
             </div>
 
@@ -464,22 +459,22 @@ const HomePage = () => {
                 <img
                   src="/images/logo.svg"
                   alt="Emily Page Designs logo"
-                  className="h-10 lg:h-12 w-44 object-contain "
+                  className="h-10 lg:h-12 w-44 object-contain"
                 />
               </div>
 
               <p
-                className="text-lg mb-8 text-[#9a8b7a] text-center  leading-relaxed"
+                className="text-lg mb-8 text-[#9a8b7a] text-center leading-relaxed"
                 style={{ fontFamily: "'Crimson Text', serif" }}>
                 Distinctive floral artistry begins with your vision. Whether
-                you're planning an intimate gathering or a grand celebration,
-                share your details and let's create something beautiful
-                together.
+                you&apos;re planning an intimate gathering or a grand
+                celebration, share your details and let&apos;s create something
+                beautiful together.
               </p>
             </div>
 
             {/* Right Side - Form */}
-            <div className="bg-[#f9f5ee] border border-[#d4c8b5] p-14 flex items-end  min-h-[80vh] flex-1">
+            <div className="bg-[#f9f5ee] border border-[#d4c8b5] p-14 flex items-end min-h-[80vh] flex-1">
               <form onSubmit={handleSubmit} className="w-full space-y-8">
                 <div>
                   <input
@@ -489,7 +484,7 @@ const HomePage = () => {
                     onChange={handleChange}
                     placeholder="Name"
                     required
-                    className="form-input w-full bg-transparent border-b border-[#c9bda8] pb-3 text-sm text-[#5b5447] ]"
+                    className="form-input w-full bg-transparent border-b border-[#c9bda8] pb-3 text-sm text-[#5b5447]"
                     style={{ fontFamily: "'Crimson Text', serif" }}
                   />
                 </div>
@@ -502,7 +497,7 @@ const HomePage = () => {
                     onChange={handleChange}
                     placeholder="Email"
                     required
-                    className="form-input w-full bg-transparent border-b border-[#c9bda8] pb-3 text-sm text-[#5b5447] "
+                    className="form-input w-full bg-transparent border-b border-[#c9bda8] pb-3 text-sm text-[#5b5447]"
                     style={{ fontFamily: "'Crimson Text', serif" }}
                   />
                 </div>
@@ -515,7 +510,7 @@ const HomePage = () => {
                     placeholder="Message"
                     required
                     rows={5}
-                    className="form-textarea w-full bg-transparent border-b border-[#c9bda8] pb-3 text-sm text-[#5b5447] resize-none "
+                    className="form-textarea w-full bg-transparent border-b border-[#c9bda8] pb-3 text-sm text-[#5b5447] resize-none"
                     style={{ fontFamily: "'Crimson Text', serif" }}
                   />
                 </div>
@@ -531,8 +526,6 @@ const HomePage = () => {
               </form>
             </div>
           </div>
-
-          {/* Social icons */}
         </div>
       </section>
     </>
