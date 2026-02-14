@@ -116,13 +116,9 @@ const HomePage = () => {
 
             <div
               className="w-full text-[#7a7369]"
-              style={{ fontFamily: "'Crimson Text', serif" }}>
+              style={{ fontFamily: "' Srisakdi', serif" }}>
               <p className="text-sm text-center leading-relaxed text-[#5b5447] mb-6">
-                Distinctive floral artistry
-                <br />
-                with an
-                <span className="inline-block align-middle mx-1 w-16 border-b border-[#7a7369]" />
-                edge
+                Lorem ipsum dolor sit amet, <br /> consectetur adipiscing elit.
               </p>
               <p className="text-xs uppercase text-center tracking-[0.2em]">
                 San Francisco
@@ -133,7 +129,7 @@ const HomePage = () => {
       </section>
 
       {/* Desktop */}
-      <main className="hidden lg:flex h-screen p-4 w-full bg-[#f3ebdf]">
+      <main className="hidden lg:flex h-screen p-3 w-full bg-[#f3ebdf]">
         <section className="relative w-3/4 h-full overflow-hidden">
           {images.map((img, idx) => (
             <img
@@ -173,12 +169,8 @@ const HomePage = () => {
           <div
             className="w-full text-[#7a7369]"
             style={{ fontFamily: "'Crimson Text', serif" }}>
-            <p className="text-sm text-center leading-relaxed text-[#5b5447] mb-6">
-              Distinctive floral artistry
-              <br />
-              with an
-              <span className="inline-block align-middle mx-1 w-16 border-b border-[#7a7369]" />
-              edge
+            <p className="text-md text-center  text-[#5b5447] mb-6">
+              Lorem ipsum dolor sit amet, <br /> consectetur adipiscing elit.
             </p>
             <p className="text-xs uppercase text-center tracking-[0.2em]">
               San Francisco
@@ -286,17 +278,16 @@ const HomePage = () => {
             <div className="bg-[#f9f5ee] border border-[#d4c8b5] p-8 flex flex-col items-center justify-between">
               <div>
                 <h2
-                  className="text-xl uppercase tracking-[0.28em] mb-6 text-[#8b7355] text-center"
-                  style={{ fontFamily: "'Playfair Display', serif" }}>
+                  className="text-xl uppercase  mb-6 text-[#8b7355] text-center"
+                  style={{ fontFamily: "'Baskerville', serif" }}>
                   Get in Touch
                 </h2>
                 <p
                   className="text-sm text-center mb-20 text-[#9a8b7a] leading-relaxed"
-                  style={{ fontFamily: "'Crimson Text', serif" }}>
-                  Distinctive floral artistry begins with your vision.
-                  <br />
-                  Share your details and let&apos;s create something beautiful
-                  together.
+                  style={{ fontFamily: "' Srisakdi', serif" }}>
+                  Etiam vehicula tellus enim, ut vehicula lorem auctor id.
+                  Aliquam dictum turpis nec leo aliquam faucibus. Donec eu ipsum
+                  leo. Nam elementum quis urna ut porta.
                 </p>
               </div>
               <form onSubmit={handleSubmit} className="space-y-6 w-full">
@@ -335,7 +326,7 @@ const HomePage = () => {
                     required
                     rows={4}
                     className="form-textarea w-full bg-transparent border-b border-[#c9bda8] pb-2 text-sm text-[#5b5447] resize-none placeholder:tracking-[0.12em]"
-                    style={{ fontFamily: "'Crimson Text', serif" }}
+                    style={{ fontFamily: "' Srisakdi', serif" }}
                   />
                 </div>
 
@@ -343,7 +334,7 @@ const HomePage = () => {
                   <button
                     type="submit"
                     className="bg-transparent border border-[#8b7355] px-12 py-3 text-xs uppercase tracking-[0.24em] text-[#8b7355] hover:bg-[#8b7355] hover:text-[#f9f5ee] transition-all duration-300"
-                    style={{ fontFamily: "'Crimson Text', serif" }}>
+                    style={{ fontFamily: "' Srisakdi', serif" }}>
                     Send
                   </button>
                 </div>
@@ -466,10 +457,9 @@ const HomePage = () => {
               <p
                 className="text-lg mb-8 text-[#9a8b7a] text-center leading-relaxed"
                 style={{ fontFamily: "'Crimson Text', serif" }}>
-                Distinctive floral artistry begins with your vision. Whether
-                you&apos;re planning an intimate gathering or a grand
-                celebration, share your details and let&apos;s create something
-                beautiful together.
+                Etiam vehicula tellus enim, ut vehicula lorem auctor id. Aliquam
+                dictum turpis nec leo aliquam faucibus. Donec eu ipsum leo. Nam
+                elementum quis urna ut porta.
               </p>
             </div>
 
