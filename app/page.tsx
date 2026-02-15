@@ -145,7 +145,7 @@ const HomePage = () => {
 
       {/* Desktop */}
       <main
-        className="hidden lg:flex h-[910px] p-3 w-full justify-center items-center"
+        className="hidden lg:flex h-[59rem] w-full justify-center items-center p-5"
         style={{ backgroundColor: "var(--color-background)" }}>
         <div className="w-full max-w-[1640px] flex h-full">
           <section className="relative w-3/4 h-full overflow-hidden">
@@ -169,7 +169,7 @@ const HomePage = () => {
           </section>
 
           <section
-            className="w-1/4 h-full flex flex-col justify-center items-center px-4 py-14"
+            className="w-1/4 h-full flex flex-col justify-center items-center px-16 py-14"
             style={{ backgroundColor: "var(--color-background)" }}>
             <div className="flex-1 flex items-start justify-center w-full">
               <img
