@@ -135,7 +135,7 @@ const HomePage = () => {
                 <p
                   className="text-xs uppercase text-center tracking-[0.2em]"
                   style={{ color: "var(--color-accent)" }}>
-                  San Francisco
+               San Marino
                 </p>
               </div>
             </div>
@@ -204,7 +204,7 @@ const HomePage = () => {
               <p
                 className="text-xs uppercase text-center tracking-[0.2em]"
                 style={{ color: "var(--color-accent)" }}>
-                San Francisco
+               San Marino
               </p>
               <div className="mt-10 flex justify-center gap-6 text-[0.7rem] tracking-[0.18em]">
                 <a
@@ -658,7 +658,7 @@ const HomePage = () => {
                   <p>
                     123 Valencia Street
                     <br />
-                    San Francisco, CA 94110
+                   San Marino, CA 94110
                   </p>
                 </div>
 
