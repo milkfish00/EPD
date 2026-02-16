@@ -145,7 +145,7 @@ const HomePage = () => {
 
       {/* Desktop */}
       <main
-        className="hidden lg:flex h-[60rem] w-full justify-center items-center p-5"
+        className="hidden lg:flex h-[59rem] w-full justify-center items-center p-5"
         style={{ backgroundColor: "var(--color-background)" }}>
         <div className="w-full max-w-[1640px] flex h-full">
           <section className="relative w-3/4 h-full overflow-hidden">
