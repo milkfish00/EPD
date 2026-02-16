@@ -650,7 +650,7 @@ const HomePage = () => {
                 style={{ color: "var(--color-text-secondary)" }}>
                 <div>
                   <p className="font-semibold mb-1">Phone</p>
-                  <p>(415) 555-0123</p>
+                  <p>(615) 430-8220</p>
                 </div>
 
                 <div>
