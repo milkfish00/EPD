@@ -116,7 +116,7 @@ const HomePage = () => {
                     fontFamily: "var(--font-heading)",
                     color: "var(--color-heading-primary)",
                   }}>
-                  Emily Page Designs
+                  Emily Pagige Designs
                 </h1>
                 <p
                   className="text-sm tracking-[0.28em] uppercase"
@@ -186,7 +186,7 @@ const HomePage = () => {
                   fontFamily: "var(--font-heading)",
                   color: "var(--color-heading-primary)",
                 }}>
-                EMILY PAGE DESIGNS
+                EMILY PAIGE DESIGNS
               </h1>
               <p
                 className="text-sm tracking-[0.28em] uppercase"
@@ -622,7 +622,7 @@ const HomePage = () => {
               style={{ borderColor: "#d4b1b1" }}>
               <img
                 src="/images/lilly.png"
-                alt="Emily Page Designs stamp"
+                alt="Emily Paige Designs stamp"
                 className="w-16 h-auto object-contain"
               />
             </div>
