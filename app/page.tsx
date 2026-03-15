@@ -135,7 +135,7 @@ const HomePage = () => {
                 <p
                   className="text-xs uppercase text-center tracking-[0.2em]"
                   style={{ color: "var(--color-accent)" }}>
-               San Marino
+                  San Marino
                 </p>
               </div>
             </div>
@@ -145,7 +145,7 @@ const HomePage = () => {
 
       {/* Desktop */}
       <main
-        className="hidden lg:flex h-[59rem] w-full justify-center items-center p-5"
+        className="hidden lg:flex h-[60rem] w-full justify-center items-center p-5"
         style={{ backgroundColor: "var(--color-background)" }}>
         <div className="w-full max-w-[1640px] flex h-full">
           <section className="relative w-3/4 h-full overflow-hidden">
@@ -204,7 +204,7 @@ const HomePage = () => {
               <p
                 className="text-xs uppercase text-center tracking-[0.2em]"
                 style={{ color: "var(--color-accent)" }}>
-               San Marino
+                San Marino
               </p>
               <div className="mt-10 flex justify-center gap-6 text-[0.7rem] tracking-[0.18em]">
                 <a
@@ -364,7 +364,7 @@ const HomePage = () => {
                   </div>
 
                   <form
-                    action="https://www.form-to-email.com/api/s/zE_5D-vRYdrj"
+                    action="https://www.form-to-email.com/api/s/obPJG3qjVMAV"
                     method="POST"
                     encType="multipart/form-data"
                     onSubmit={handleSubmit}
@@ -658,7 +658,7 @@ const HomePage = () => {
                   <p>
                     123 Valencia Street
                     <br />
-                   San Marino, CA 94110
+                    San Marino, CA 94110
                   </p>
                 </div>
 
@@ -702,7 +702,7 @@ const HomePage = () => {
                     : "opacity-100 translate-y-0"
                 }`}>
                 <form
-                  action="https://www.form-to-email.com/api/s/zE_5D-vRYdrj"
+                  action="https://www.form-to-email.com/api/s/obPJG3qjVMAV"
                   method="POST"
                   encType="multipart/form-data"
                   onSubmit={handleSubmit}
