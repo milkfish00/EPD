@@ -91,7 +91,7 @@ const HomePage = () => {
     <div className="animate-fade-in">
       {/* Mobile */}
       <section className="lg:hidden h-screen w-full relative overflow-hidden bg-[#e3ddcf] flex justify-center">
-        <div className="w-full max-w-[1640px] relative h-full">
+        <div className="w-full max-w-410 relative h-full">
           <img
             src="/images/flowers2.JPG"
             alt="Floral background"
@@ -145,9 +145,9 @@ const HomePage = () => {
 
       {/* Desktop */}
       <main
-        className="hidden lg:flex h-[60rem] w-full justify-center items-center p-5"
+        className="hidden lg:flex w-full justify-center items-center p-4 "
         style={{ backgroundColor: "var(--color-background)" }}>
-        <div className="w-full max-w-[1640px] flex h-full">
+        <div className="w-full max-w-410 flex h-[55.7rem]">
           <section className="relative w-3/4 h-full overflow-hidden">
             {images.map((img, idx) => (
               <img
@@ -561,7 +561,7 @@ const HomePage = () => {
               {/* Thank You Card */}
               {isSubmitted && (
                 <div
-                  className="min-h-[600px] flex items-center justify-center p-2 relative"
+                  className="min-h-150 flex items-center justify-center p-2 relative"
                   style={{
                     backgroundImage: "url('/images/flowers4.JPG')",
                     backgroundSize: "cover",
@@ -629,7 +629,7 @@ const HomePage = () => {
 
             {/* Left Side - Description */}
             <div
-              className={`border border-r-0 px-16 py-20 flex flex-col justify-between items-center shadow-sm h-[700px] w-1/2 border-r-1 border-r-dashed transition-all duration-700 ${
+              className={`border border-r px-16 py-20 flex flex-col justify-between items-center shadow-sm h-175 w-1/2 border-r-dashed transition-all duration-700 ${
                 isSubmitted ? "opacity-0" : "opacity-100"
               }`}
               style={{
@@ -689,7 +689,7 @@ const HomePage = () => {
 
             {/* Right Side - Form */}
             <div
-              className="border border-l-0 px-16 py-20 flex items-end h-[700px] w-1/2 relative overflow-hidden"
+              className="border border-l-0 px-16 py-20 flex items-end h-175 w-1/2 relative overflow-hidden"
               style={{
                 backgroundColor: "var(--color-background-light)",
                 borderColor: "var(--color-border)",
@@ -698,7 +698,7 @@ const HomePage = () => {
               <div
                 className={`w-full max-w-2xl transition-all duration-700 ${
                   isSubmitted
-                    ? "opacity-0 translate-y-[50px] pointer-events-none"
+                    ? "opacity-0 translate-y-12.5 pointer-events-none"
                     : "opacity-100 translate-y-0"
                 }`}>
                 <form
@@ -778,7 +778,7 @@ const HomePage = () => {
 
             {/* Thank You Card - Separate from form section */}
             <div
-              className={`absolute top-0 right-0 w-full h-[700px] z-20 transition-all duration-700 ${
+              className={`absolute top-0 right-0 w-full h-175 z-20 transition-all duration-700 ${
                 isSubmitted
                   ? "opacity-100 pointer-events-auto"
                   : "opacity-0 pointer-events-none"
