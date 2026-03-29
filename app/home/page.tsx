@@ -410,7 +410,7 @@ function TestimonialSlider({ visible }: { visible: boolean }) {
 
   return (
     <div
-      className="w-full max-w-[920px] md:max-w-[1100px] mx-auto"
+      className="w-full max-w-[920px] mx-auto"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -441,8 +441,6 @@ function TestimonialSlider({ visible }: { visible: boolean }) {
               </div>
             </div>
           </div>
-
-          <div className="h-px bg-[#e5ddd2] mb-10" />
 
           {/* MESSAGE */}
           <p className="font-heading font-light text-[clamp(1.4rem,2.4vw,2rem)] text-charcoal leading-[1.35] mb-10">
