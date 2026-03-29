@@ -287,24 +287,24 @@ function NavLink({
 // ─── Testimonials data ────────────────────────────────────────────────────────
 const TESTIMONIALS = [
   {
-    from: "Sarah & James",
+    from: "Jane Doe",
     event: "Wedding — Pasadena, CA",
-    body: "Working with Emily Paige was the easiest decision we made for our wedding. Every arrangement felt like it had been pulled straight from a dream. Guests still ask us who did the flowers.",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
-    from: "Claire M.",
+    from: "John Smith",
     event: "Intimate Dinner — San Marino",
-    body: "I've never had flowers make me cry before. The centerpiece Emily created for our anniversary dinner was so thoughtful and so alive — it set the whole tone for the evening.",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
-    from: "The Hernandez Family",
-    event: "Rehearsal Dinner — Arcadia",
-    body: "From the first call to the last petal, everything was seamless. Emily listened to exactly what we wanted and delivered something even more beautiful than we imagined.",
+    from: "Jane Doe",
+    event: "Wedding — Pasadena, CA",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
-    from: "Natalie & Priya",
-    event: "Engagement Party — Monrovia",
-    body: "Our guests thought we'd hired a team of ten. Emily did it all with such grace and care — the florals were extraordinary and the process was completely stress-free.",
+    from: "John Smith",
+    event: "Intimate Dinner — San Marino",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
 ];
 
@@ -804,7 +804,7 @@ export default function LandingPage() {
               transition={{ duration: 1 }}
               className="w-full h-[520px] md:h-[820px] overflow-hidden">
               <img
-                src="/images/emily.png"
+                src="/images/EMILY.png"
                 alt=""
                 className="w-full h-full object-cover"
               />
