@@ -1,33 +1,43 @@
+"use client";
+
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { usePathname } from "next/navigation";
+import { Cormorant_Garamond, Jost } from "next/font/google";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-heading",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jost = Jost({
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-body",
+  display: "swap",
 });
-
-export const metadata: Metadata = {
-  title: "Emily Page Designs",
-  description:
-    "Floral and botanical arrangements for weddings and events in San Francisco.",
-};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const pathname = usePathname();
+
+  // Hide navbar only on homepage (/)
+  const hideNavbar = pathname === "/";
+
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+      <body>
+        {!hideNavbar && <Navbar />}
         {children}
+        {!hideNavbar && <Footer />}
       </body>
     </html>
   );
