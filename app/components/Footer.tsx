@@ -97,7 +97,6 @@ export default function Footer() {
           Terms & Privacy
         </Link>
       </div>
-      1
     </footer>
   );
 }
