@@ -102,7 +102,7 @@ const blocks: Block[] = [
       aspect: "aspect-[3/4]",
     },
     right: {
-      src: "/images/lilly.png",
+      src: "/images/flowers7.png",
       alt: "Lilly arrangement",
       title: "Lilly Study",
       category: "Florals",
