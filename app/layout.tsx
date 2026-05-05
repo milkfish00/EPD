@@ -1,24 +1,24 @@
 "use client";
 
-import type { Metadata } from "next";
 import { usePathname } from "next/navigation";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Cormorant_Garamond, Aboreto } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import PageTransition from "./components/PageTransition";
 import "./globals.css";
+
+const aboreto = Aboreto({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-logo",
+  display: "swap",
+});
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   style: ["normal", "italic"],
   variable: "--font-heading",
-  display: "swap",
-});
-
-const jost = Jost({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-body",
   display: "swap",
 });
 
@@ -29,15 +29,12 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  // Hide navbar only on homepage (/)
-  const hideNavbar = pathname === "/";
-
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${aboreto.variable}`}>
       <body>
-        {!hideNavbar && <Navbar />}
-        {children}
-        {!hideNavbar && <Footer />}
+        <Navbar />
+        <PageTransition>{children}</PageTransition>
+        <Footer />
       </body>
     </html>
   );

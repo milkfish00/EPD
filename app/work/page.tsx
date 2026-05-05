@@ -1,141 +1,47 @@
-// app/work/page.tsx
-"use client";
+import React from "react";
+import Image from "next/image";
 
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-
-// ─── Reveal hook ─────────────────────────────────────────────────────────────
-function useReveal(threshold = 0.05) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-
-  return { ref, visible };
-}
-
-// ─── Reveal image ─────────────────────────────────────────────────────────────
-function RevealImg({
-  src,
-  alt,
-  height,
-  delay = 0,
-}: {
-  src: string;
-  alt: string;
-  height: number;
-  delay?: number;
-}) {
-  const { ref, visible } = useReveal();
-
-  return (
-    <div
-      ref={ref}
-      className="overflow-hidden"
-      style={{
-        height,
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(32px)",
-        transition: `opacity 1.2s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 1.2s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
-      }}>
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-700 ease-out"
-      />
-    </div>
-  );
-}
-
-// ─── Data ────────────────────────────────────────────────────────────────────
-const HEIGHTS = { sm: 360, md: 540, lg: 780 } as const;
-
-const ITEMS: { src: string; h: keyof typeof HEIGHTS }[] = [
-  { src: "/images/bouquet1.png", h: "md" },
-  { src: "/images/flowers5.png", h: "sm" },
-  { src: "/images/flowers1.jpg", h: "md" },
-  { src: "/images/Bouquet2.png", h: "md" },
-  { src: "/images/flowers3.JPG", h: "md" },
-  { src: "/images/flowers2.JPG", h: "lg" },
-  { src: "/images/flowers4.JPG", h: "lg" },
-  { src: "/images/flowers4.JPG", h: "lg" },
-  { src: "/images/Bouquet2.png", h: "md" },
-  { src: "/images/flowers7.png", h: "md" },
-  { src: "/images/wedding2.jpg", h: "md" },
-  { src: "/images/flowers5.png", h: "sm" },
-  { src: "/images/Bouquet2.png", h: "lg" },
-  { src: "/images/flowers1.jpg", h: "lg" },
-  { src: "/images/flowers7.png", h: "sm" },
-  { src: "/images/flowers4.JPG", h: "md" },
-  { src: "/images/wedding2.jpg", h: "sm" },
-  { src: "/images/flowers1.jpg", h: "md" },
+const GRID_IMAGES = [
+  { src: "/images/flowers1.jpg", alt: "Floral arrangement" },
+  { src: "/images/flowers2.JPG", alt: "Wedding flowers" },
+  { src: "/images/flowers3.JPG", alt: "Bouquet detail" },
+  { src: "/images/flowers4.JPG", alt: "Event styling" },
+  { src: "/images/flowers5.png", alt: "Floral design" },
+  { src: "/images/flowers7.png", alt: "Wedding styling" },
+  { src: "/images/bouquet1.png", alt: "Bouquet" },
+  { src: "/images/Bouquet2.png", alt: "Bouquet arrangement" },
 ];
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-export default function WorkPage() {
+const page = () => {
   return (
-    <div className="max-w-[1600px] mx-auto px-5 md:px-8 py-10 bg-[#f3ebde]">
+    <main className="w-full bg-[#f7f7f7]">
       {/* Header */}
-      <header className="text-center py-20 md:py-28 animate-fade-up">
-        <h1 className="font-heading script font-light text-[clamp(3rem,8vw,10rem)] text-charcoal leading-[1.02] mb-10">
-          Gallery
+      <div className="relative flex flex-col items-center justify-center h-full py-30 md:py-50">
+        <h1
+          className="text-[clamp(3rem,8vw,8rem)] text-stone-800 font-light leading-none text-center"
+          style={{ fontFamily: "var(--font-heading)" }}>
+          Our Work
         </h1>
-        <p className="font-body text-[0.85rem] text-charcoal-soft font-light max-w-[340px] mx-auto leading-[1.85]">
-          Donec mollis tincidunt fermentum. Duis ac ante at est iaculis feugiat
-          at id nisl.
+        <p className="absolute bottom-10 text-[0.6rem] tracking-[0.2em] uppercase text-stone-400">
+          Wedding &amp; Event Floral Design
         </p>
-      </header>
+      </div>
 
-      {/* Masonry grid */}
-      <div className="masonry gap-1.5 space-y-1.5">
-        {ITEMS.map((item, i) => (
-          <Link
-            key={i}
-            href="#"
-            className="block break-inside-avoid group mb-1.5">
-            <RevealImg
-              src={item.src}
-              alt="Floral arrangement"
-              height={HEIGHTS[item.h]}
-              delay={i * 60}
+      {/* Image grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-5 my-3">
+        {GRID_IMAGES.map(({ src, alt }) => (
+          <div key={src} className="relative aspect-4/5 overflow-hidden group">
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
-          </Link>
+          </div>
         ))}
       </div>
-
-      {/* CTA */}
-      <div className="text-center py-24 flex items-center justify-center flex-col gap-6">
-        <img
-          src="/images/wheat.png"
-          className="w-6 w-6 invert opacity-40"
-          alt=""
-        />
-
-        <p className="font-heading text-[1rem] text-bark">
-          Interested in working together?
-        </p>
-        <Link
-          href="/contact"
-          className="inline-flex items-center gap-3 border border-soil text-soil no-underline
-                     px-8 py-3.5 font-body text-[0.6rem] tracking-[0.26em] uppercase
-                     hover:bg-soil hover:text-cream transition-all duration-300">
-          Book a Consultation
-        </Link>
-      </div>
-    </div>
+    </main>
   );
-}
+};
+
+export default page;

@@ -1,45 +1,19 @@
-// app/contact/page.tsx
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
-interface FormState {
-  name: string;
-  email: string;
-  message: string;
-}
+type FormState = { name: string; email: string; message: string };
 
 const EMPTY: FormState = { name: "", email: "", message: "" };
 
-function LineInput({
-  type = "text",
-  placeholder,
-  value,
-  onChange,
-  required,
-}: {
-  type?: string;
-  placeholder: string;
-  value: string;
-  onChange: (v: string) => void;
-  required?: boolean;
-}) {
-  return (
-    <input
-      type={type}
-      placeholder={placeholder}
-      required={required}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="line-input"
-    />
-  );
-}
+const inputClass =
+  "w-full bg-transparent border-b border-stone-400 pb-2 text-[0.8rem] tracking-wide text-[#4d4032]/80 placeholder:text-[#4d4032]/40 outline-none focus:border-stone-600 transition-colors";
 
 export default function ContactPage() {
+  const [form, setForm] = useState<FormState>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState<FormState>(EMPTY);
 
   const set = (key: keyof FormState) => (val: string) =>
     setForm((p) => ({ ...p, [key]: val }));
@@ -55,149 +29,142 @@ export default function ContactPage() {
   // ── Thank-you screen ──────────────────────────────────────────────────────
   if (submitted) {
     return (
-      <main className="min-h-screen flex flex-col bg-cream p-3 md:p-4">
-        <div className="flex-1 flex items-center justify-center py-4 md:py-20">
-          <div
-            className="relative w-full max-w-[1300px] overflow-hidden border-20 md:border-30 border-[#fcf9f5] "
-            style={{ minHeight: 750 }}>
-            <img
-              src="/images/flowers1.jpg"
-              alt="floral background"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-black/35" />
-
-            <div className="relative z-10 flex flex-col items-center justify-center h-full min-h-[750px] px-6 text-center">
-              <h2
-                className="script text-white drop-shadow-lg leading-none -rotate-6"
-                style={{
-                  fontSize: "clamp(3.5rem,14vw,13rem)",
-                  fontWeight: 700,
-                }}>
-                Thank You
-              </h2>
-              <p className="mt-6 font-body text-white text-[0.75rem] tracking-[0.18em] uppercase font-medium">
-                We'll be in touch soon.
-              </p>
-              <button
-                onClick={() => {
-                  setSubmitted(false);
-                  setForm(EMPTY);
-                }}
-                className="mt-12 py-4 px-8 bg-white font-body text-[0.65rem] tracking-[0.2em] uppercase text-charcoal hover:bg-cream transition-colors duration-300">
-                Send another message
-              </button>
-            </div>
-          </div>
+      <main className="min-h-screen flex items-center justify-center bg-[#ede8de]">
+        <div className="text-center px-6">
+          <p className="text-[0.58rem] tracking-[0.35em] uppercase text-[#4d4032]/40 my-10">
+            Emily Paige Designs
+          </p>
+          <h2
+            className="text-[clamp(2.5rem,6vw,5rem)] text-[#4d4032]/80 font-light leading-tight"
+            style={{ fontFamily: "var(--font-heading)" }}>
+            Thank you.
+          </h2>
+          <p className="text-[0.65rem] tracking-[0.28em] uppercase text-[#4d4032]/50 mt-4">
+            We&apos;ll be in touch soon.
+          </p>
+          <button
+            onClick={() => {
+              setSubmitted(false);
+              setForm(EMPTY);
+            }}
+            className="mt-12 text-[0.62rem] tracking-[0.2em] uppercase text-[#4d4032]/50 border-b border-stone-400 pb-0.5 hover:text-[#4d4032]/80 hover:border-stone-600 transition-colors">
+            Send another message
+          </button>
         </div>
       </main>
     );
   }
 
-  // ── Contact form ──────────────────────────────────────────────────────────
+  // ── Contact page ──────────────────────────────────────────────────────────
   return (
-    <main className="flex flex-col bg-[#f3ebde] p-3 md:p-4">
-      {/* Header */}
-      <header className="text-center py-20 md:py-28 animate-fade-up">
-        <h1 className="font-heading script font-light text-[clamp(3rem,8vw,10rem)] text-charcoal leading-[1.02] mb-6">
-          Get in Touch
-        </h1>
-        <p className="font-body text-[0.85rem] text-charcoal-soft font-light max-w-[340px] mx-auto leading-[1.85]">
-          Donec mollis tincidunt fermentum. Duis ac ante at est iaculis feugiat
-          at id nisl.
-        </p>
-      </header>
-
-      <div className="flex items-center justify-center pb-20">
-        <div className="relative w-full max-w-[1300px] bg-[#f7f3ed] border border-[#d4c9bb] border ß">
-          {/* Dashed divider desktop */}
-          <div className="hidden md:block absolute top-0 bottom-0 left-[45%] border-l border-dashed border-[#d4c9bb] z-10" />
-
-          <div className="flex flex-col md:flex-row" style={{ minHeight: 750 }}>
-            {/* Mobile image banner */}
-            <div className="block md:hidden relative w-full h-80 overflow-hidden">
-              <img
-                src="/images/wedding2.jpg"
-                alt="Floral editorial"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-black/10" />
-            </div>
-
-            {/* Desktop image panel */}
-            <div className="hidden md:block md:w-[45%] p-6">
-              <div className="relative w-full h-full overflow-hidden bg-cream-warm">
-                <img
-                  src="/images/wedding2.jpg"
-                  alt="Floral editorial"
-                  className="absolute inset-0 w-full h-full object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-black/10" />
-              </div>
-            </div>
-
-            {/* Form panel */}
-            <div className="flex-1 flex flex-col px-6 sm:px-8 md:px-14 py-8 md:py-12 relative">
-              {/* Decorative stamp */}
-              <div className="hidden md:flex absolute top-7 right-7 w-[4.5rem] h-[4.5rem] border border-dashed border-parchment flex-col items-center justify-center">
-                <img
-                  src="/images/lilly.png"
-                  className="w-10 object-contain"
-                  alt=""
-                />
-              </div>
-
-              {/* Mobile heading */}
-              <div className="mb-7 md:hidden">
-                <h2 className="font-heading text-xl text-charcoal font-light mb-1">
-                  Inquiry Form
-                </h2>
-                <p className="font-body text-[0.7rem] text-charcoal-soft tracking-wide">
-                  Tell us about your event and we'll be in touch.
-                </p>
-              </div>
-
-              {/* Form */}
-              <div className="flex-1 flex flex-col justify-end">
-                <form
-                  onSubmit={handleSubmit}
-                  className="flex flex-col gap-6 md:gap-8 mt-4 md:mt-0">
-                  <LineInput
-                    placeholder="Your Name"
-                    value={form.name}
-                    onChange={set("name")}
-                    required
-                  />
-                  <LineInput
-                    type="email"
-                    placeholder="Your Email"
-                    value={form.email}
-                    onChange={set("email")}
-                    required
-                  />
-                  <textarea
-                    placeholder="Tell us about your event..."
-                    required
-                    rows={4}
-                    value={form.message}
-                    onChange={(e) => set("message")(e.target.value)}
-                    className="line-input resize-none"
-                  />
-
-                  <div className="flex justify-end items-center pt-1 pb-2 md:pb-0">
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="font-body text-[0.7rem] tracking-[0.18em] uppercase text-charcoal-soft hover:text-charcoal transition-colors duration-200 disabled:opacity-50">
-                      {submitting ? "Sending…" : "Send Message →"}
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
+    <main className="min-h-screen bg-[#f7f7f7] pt-10 px-5 mt-2">
+      <div className="flex h-[calc(100vh-5rem)]">
+        {/* ── Left: image panel (desktop only) ── */}
+        <div className="hidden md:block md:w-1/2 relative">
+          <Image
+            src="/images/flowers1.jpg"
+            alt="Emily Paige Designs"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+        </div>
+        {/* ── Right: content panel ── */}
+        <div className="flex-1 bg-[#f2ece2] flex flex-col items-center justify-center px-8 lg:px-14 py-10">
+          {/* Title */}
+          <div className="text-center mb-6">
+            <h1
+              className="text-5xl text-[#4d4032]/80 font-light leading-snug tracking-tight"
+              style={{ fontFamily: "var(--font-heading)" }}>
+              Get In Touch
+            </h1>
           </div>
+
+          {/* Rule */}
+
+          {/* Description */}
+          <p
+            className="text-md text-[#4d4032]/50 text-center leading-[1.8] max-w-80 mb-8"
+            style={{ fontFamily: "var(--font-heading)" }}>
+            We&apos;d love to hear about your vision. Tell us about your event
+            and we&apos;ll be in touch.
+          </p>
+
+          {/* Form */}
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-5 w-full max-w-130">
+            <input
+              type="text"
+              placeholder="Your Name"
+              required
+              value={form.name}
+              onChange={(e) => set("name")(e.target.value)}
+              className={inputClass}
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              required
+              value={form.email}
+              onChange={(e) => set("email")(e.target.value)}
+              className={inputClass}
+            />
+            <textarea
+              placeholder="Tell us about your event…"
+              required
+              rows={3}
+              value={form.message}
+              onChange={(e) => set("message")(e.target.value)}
+              className={`${inputClass} resize-none`}
+            />
+            <div className="flex justify-end pt-1">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="text-[0.6rem] tracking-[0.22em] uppercase text-[#4d4032]/50 border-b border-stone-400 pb-0.5 hover:text-[#4d4032]/80 hover:border-stone-600 transition-colors disabled:opacity-40">
+                {submitting ? "Sending…" : "Send Message"}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+      {/* Contact info section */}
+      <section className="flex flex-col items-center justify-center gap-12 px-6 py-10">
+        {/* 3-column contact info */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 text-center w-full max-w-7xl">
+          <div className="flex flex-col gap-2">
+            <p className=" text-[#4d4032]/40     text-[0.65rem] tracking-wide uppercase font-light transition-opacity hover:opacity-100">
+              Phone
+            </p>
+            <a
+              href="tel:+15550000000"
+              className="text-[.8rem] text-[#4d4032]/65 hover:text-[#4d4032] transition-colors leading-relaxed">
+              +1 (555) 000-0000
+            </a>
+          </div>
+          <div className="flex flex-col gap-2">
+            <p className=" text-[#4d4032]/40     text-[0.65rem] tracking-wide uppercase font-light transition-opacity hover:opacity-100">
+              Visit Us
+            </p>
+            <p className="text-[.8rem] text-[#4d4032]/65 leading-relaxed">
+              123 San Marino St
+              <br />
+              California
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <p className=" text-[#4d4032]/40     text-[0.65rem] tracking-wide uppercase font-light transition-opacity hover:opacity-100">
+              Email
+            </p>
+            <a
+              href="mailto:hello@emilypaigedesigns.com"
+              className="text-[.8rem] text-[#4d4032]/65 hover:text-[#4d4032] transition-colors leading-relaxed">
+              hello@emilypaigedesigns.com
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
