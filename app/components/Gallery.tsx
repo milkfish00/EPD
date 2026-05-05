@@ -40,7 +40,7 @@ const blocks: Block[] = [
       aspect: "aspect-[4/5]",
     },
     right: {
-      src: "/images/flowers4.jpg",
+      src: "/images/flowers2.JPG",
       alt: "Garden wedding florals",
       title: "Garden Florals",
       category: "Wedding",
@@ -53,7 +53,7 @@ const blocks: Block[] = [
     type: "pair",
     reversed: true,
     left: {
-      src: "/images/Bouquet1.png",
+      src: "/images/flowers3.JPG",
       alt: "Bouquet detail",
       title: "Bouquet Study",
       category: "Bridal",
@@ -61,7 +61,7 @@ const blocks: Block[] = [
       aspect: "aspect-[3/4]",
     },
     right: {
-      src: "/images/Bouquet2.png",
+      src: "/images/flowers4.JPG",
       alt: "Event flowers",
       title: "Event Styling",
       category: "Events",
@@ -102,7 +102,7 @@ const blocks: Block[] = [
       aspect: "aspect-[3/4]",
     },
     right: {
-      src: "/images/bouquet1.png",
+      src: "/images/lilly.png",
       alt: "Lilly arrangement",
       title: "Lilly Study",
       category: "Florals",
@@ -110,10 +110,11 @@ const blocks: Block[] = [
       aspect: "aspect-[4/5]",
     },
   },
+  { type: "full", src: "/images/demo.jpg", alt: "Floral styling" },
   {
     type: "pair",
     left: {
-      src: "/images/flowers5.png",
+      src: "/images/flowers.png",
       alt: "Seasonal florals",
       title: "Seasonal Edit",
       category: "Florals",
@@ -121,7 +122,7 @@ const blocks: Block[] = [
       aspect: "aspect-[4/5]",
     },
     right: {
-      src: "/images/flowers7.png",
+      src: "/images/flowers3.JPG",
       alt: "Bouquet close-up",
       title: "Bouquet Close-Up",
       category: "Bridal",
@@ -151,7 +152,8 @@ function GalleryImage({ item, index }: { item: GalleryItem; index: number }) {
             src={item.src}
             alt={item.alt}
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, 58vw"
+            quality={90}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         </div>
