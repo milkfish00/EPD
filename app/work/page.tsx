@@ -2,19 +2,27 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-
-const GRID_IMAGES = [
-  { src: "/images/flowers1.jpg", alt: "Floral arrangement" },
-  { src: "/images/flowers2.JPG", alt: "Wedding flowers" },
-  { src: "/images/flowers3.JPG", alt: "Bouquet detail" },
-  { src: "/images/flowers4.JPG", alt: "Event styling" },
-  { src: "/images/flowers5.png", alt: "Floral design" },
-  { src: "/images/flowers7.png", alt: "Wedding styling" },
-  { src: "/images/bouquet1.png", alt: "Bouquet" },
-  { src: "/images/Bouquet2.png", alt: "Bouquet arrangement" },
-];
+import { useEffect, useState } from "react";
+import { getGalleryPage, urlFor } from "@/sanity/lib/queries";
+import type { GalleryPageData, GalleryItem } from "@/sanity/lib/queries";
 
 const page = () => {
+  const [galleryData, setGalleryData] = useState<GalleryPageData | null>(null);
+
+  useEffect(() => {
+    getGalleryPage().then(setGalleryData);
+  }, []);
+
+  const heading = galleryData?.heading;
+  const subheading = galleryData?.subheading;
+
+  const images =
+    galleryData?.items?.map((item: GalleryItem) => ({
+      src: urlFor(item).width(2400).quality(100).url(),
+      alt: item.alt ?? "",
+      key: item._key,
+    })) ?? [];
+
   return (
     <main className="w-full bg-[#f7f7f7]">
       {/* Header */}
@@ -25,14 +33,14 @@ const page = () => {
           transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-[clamp(3rem,8vw,8rem)] text-stone-800 font-light leading-none text-center"
           style={{ fontFamily: "var(--font-heading)" }}>
-          Our Work
+          {heading}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="absolute bottom-10 text-[0.6rem] tracking-[0.2em] uppercase text-stone-400">
-          Wedding &amp; Event Floral Design
+          {subheading}
         </motion.p>
       </div>
 
@@ -42,9 +50,9 @@ const page = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-5 my-3">
-        {GRID_IMAGES.map(({ src, alt }, i) => (
+        {images.map(({ src, alt, key }, i) => (
           <motion.div
-            key={src}
+            key={key}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -59,7 +67,7 @@ const page = () => {
               fill
               priority={i < 4}
               sizes="(max-width: 1024px) 100vw, 50vw"
-              quality={90}
+              quality={100}
               className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           </motion.div>

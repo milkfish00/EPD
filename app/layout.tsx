@@ -1,10 +1,6 @@
-"use client";
-
-import { usePathname } from "next/navigation";
 import { Cormorant_Garamond, Aboreto } from "next/font/google";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import PageTransition from "./components/PageTransition";
+import ClientLayout from "./components/ClientLayout";
+import { SanityLive } from "@/sanity/lib/live";
 import "./globals.css";
 
 const aboreto = Aboreto({
@@ -27,14 +23,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
   return (
     <html lang="en" className={`${cormorant.variable} ${aboreto.variable}`}>
       <body>
-        <Navbar />
-        <PageTransition>{children}</PageTransition>
-        <Footer />
+        <ClientLayout>{children}</ClientLayout>
+        <SanityLive />
       </body>
     </html>
   );

@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { getContactPage, urlFor } from "@/sanity/lib/queries";
+import type { ContactPageData } from "@/sanity/lib/queries";
 
 type FormState = { name: string; email: string; message: string };
 
@@ -14,6 +16,11 @@ export default function ContactPage() {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [pageData, setPageData] = useState<ContactPageData | null>(null);
+
+  useEffect(() => {
+    getContactPage().then(setPageData);
+  }, []);
 
   const set = (key: keyof FormState) => (val: string) =>
     setForm((p) => ({ ...p, [key]: val }));
@@ -25,6 +32,15 @@ export default function ContactPage() {
     setSubmitting(false);
     setSubmitted(true);
   };
+
+  const heading = pageData?.heading;
+  const subheading = pageData?.subheading;
+  const phone = pageData?.phone;
+  const email = pageData?.email;
+  const location = pageData?.location;
+  const bgSrc = pageData?.backgroundImage
+    ? urlFor(pageData.backgroundImage).width(2400).quality(100).url()
+    : null;
 
   // ── Thank-you screen ──────────────────────────────────────────────────────
   if (submitted) {
@@ -61,13 +77,15 @@ export default function ContactPage() {
       <div className="flex h-[calc(100vh-5rem)]">
         {/* ── Left: image panel (desktop only) ── */}
         <div className="hidden md:block md:w-1/2 relative">
-          <Image
-            src="/images/flowers1.jpg"
-            alt="Emily Paige Designs"
-            fill
-            className="object-cover object-center"
-            priority
-          />
+          {bgSrc && (
+            <Image
+              src={bgSrc}
+              alt="Emily Paige Designs"
+              fill
+              className="object-cover object-center"
+              priority
+            />
+          )}
         </div>
         {/* ── Right: content panel ── */}
         <div className="flex-1 bg-[#f2ece2] flex flex-col items-center justify-center px-8 lg:px-14 py-10">
@@ -76,18 +94,15 @@ export default function ContactPage() {
             <h1
               className="text-5xl text-[#4d4032]/80 font-light leading-snug tracking-tight"
               style={{ fontFamily: "var(--font-heading)" }}>
-              Get In Touch
+              {heading}
             </h1>
           </div>
-
-          {/* Rule */}
 
           {/* Description */}
           <p
             className="text-md text-[#4d4032]/50 text-center leading-[1.8] max-w-80 mb-8"
             style={{ fontFamily: "var(--font-heading)" }}>
-            We&apos;d love to hear about your vision. Tell us about your event
-            and we&apos;ll be in touch.
+            {subheading}
           </p>
 
           {/* Form */}
@@ -138,19 +153,17 @@ export default function ContactPage() {
               Phone
             </p>
             <a
-              href="tel:+15550000000"
+              href={`tel:${phone?.replace(/\s/g, "")}`}
               className="text-[.8rem] text-[#4d4032]/65 hover:text-[#4d4032] transition-colors leading-relaxed">
-              +1 (555) 000-0000
+              {phone}
             </a>
           </div>
           <div className="flex flex-col gap-2">
             <p className=" text-[#4d4032]/40     text-[0.65rem] tracking-wide uppercase font-light transition-opacity hover:opacity-100">
               Visit Us
             </p>
-            <p className="text-[.8rem] text-[#4d4032]/65 leading-relaxed">
-              123 San Marino St
-              <br />
-              California
+            <p className="text-[.8rem] text-[#4d4032]/65 leading-relaxed whitespace-pre-line">
+              {location}
             </p>
           </div>
           <div className="flex flex-col gap-2">
@@ -158,9 +171,9 @@ export default function ContactPage() {
               Email
             </p>
             <a
-              href="mailto:hello@emilypaigedesigns.com"
+              href={`mailto:${email}`}
               className="text-[.8rem] text-[#4d4032]/65 hover:text-[#4d4032] transition-colors leading-relaxed">
-              hello@emilypaigedesigns.com
+              {email}
             </a>
           </div>
         </div>

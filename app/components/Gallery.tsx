@@ -3,8 +3,14 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
+import { urlFor } from "@/sanity/lib/queries";
+import type { GalleryItem as SanityItem } from "@/sanity/lib/queries";
 
-type GalleryItem = {
+type GalleryProps = {
+  items?: SanityItem[];
+};
+
+type GalleryImage = {
   src: string;
   alt: string;
   title: string;
@@ -15,8 +21,8 @@ type GalleryItem = {
 
 type PairBlock = {
   type: "pair";
-  left: GalleryItem;
-  right: GalleryItem;
+  left: GalleryImage;
+  right: GalleryImage;
   reversed?: boolean;
 };
 
@@ -28,111 +34,7 @@ type FullBlock = {
 
 type Block = PairBlock | FullBlock;
 
-const blocks: Block[] = [
-  {
-    type: "pair",
-    left: {
-      src: "/images/flowers1.jpg",
-      alt: "Spring floral arrangement",
-      title: "Spring Collection",
-      category: "Florals",
-      href: "/work",
-      aspect: "aspect-[4/5]",
-    },
-    right: {
-      src: "/images/flowers2.JPG",
-      alt: "Garden wedding florals",
-      title: "Garden Florals",
-      category: "Wedding",
-      href: "/work",
-      aspect: "aspect-[3/4]",
-    },
-  },
-  { type: "full", src: "/images/weding2.jpg", alt: "Wedding floral styling" },
-  {
-    type: "pair",
-    reversed: true,
-    left: {
-      src: "/images/flowers3.JPG",
-      alt: "Bouquet detail",
-      title: "Bouquet Study",
-      category: "Bridal",
-      href: "/work",
-      aspect: "aspect-[3/4]",
-    },
-    right: {
-      src: "/images/flowers4.JPG",
-      alt: "Event flowers",
-      title: "Event Styling",
-      category: "Events",
-      href: "/work",
-      aspect: "aspect-[4/5]",
-    },
-  },
-  { type: "full", src: "/images/wedding2.jpg", alt: "Wedding ceremony design" },
-  {
-    type: "pair",
-    left: {
-      src: "/images/flowers5.png",
-      alt: "Floral design",
-      title: "Garden Party",
-      category: "Events",
-      href: "/work",
-      aspect: "aspect-[4/5]",
-    },
-    right: {
-      src: "/images/bouquet1.png",
-      alt: "Bridal bouquet",
-      title: "Bridal Bouquet",
-      category: "Bridal",
-      href: "/work",
-      aspect: "aspect-[3/4]",
-    },
-  },
-  { type: "full", src: "/images/flowers7.png", alt: "Wedding styling" },
-  {
-    type: "pair",
-    reversed: true,
-    left: {
-      src: "/images/Bouquet2.png",
-      alt: "Bouquet arrangement",
-      title: "Bouquet Arrangement",
-      category: "Bridal",
-      href: "/work",
-      aspect: "aspect-[3/4]",
-    },
-    right: {
-      src: "/images/flowers7.png",
-      alt: "Lilly arrangement",
-      title: "Lilly Study",
-      category: "Florals",
-      href: "/work",
-      aspect: "aspect-[4/5]",
-    },
-  },
-  { type: "full", src: "/images/demo.jpg", alt: "Floral styling" },
-  {
-    type: "pair",
-    left: {
-      src: "/images/flowers.png",
-      alt: "Seasonal florals",
-      title: "Seasonal Edit",
-      category: "Florals",
-      href: "/work",
-      aspect: "aspect-[4/5]",
-    },
-    right: {
-      src: "/images/flowers3.JPG",
-      alt: "Bouquet close-up",
-      title: "Bouquet Close-Up",
-      category: "Bridal",
-      href: "/work",
-      aspect: "aspect-[3/4]",
-    },
-  },
-];
-
-function GalleryImage({ item, index }: { item: GalleryItem; index: number }) {
+function GalleryImage({ item, index }: { item: GalleryImage; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -153,7 +55,7 @@ function GalleryImage({ item, index }: { item: GalleryItem; index: number }) {
             alt={item.alt}
             fill
             sizes="(max-width: 768px) 100vw, 58vw"
-            quality={90}
+            quality={100}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         </div>
@@ -182,7 +84,7 @@ function PairRow({
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.5 }}
       className="flex gap-3 sm:gap-5 items-start mb-16">
-      <div className="w-[42%]">
+      <div className="w-[62%]">
         <GalleryImage item={items[0]} index={blockIndex * 2} />
       </div>
       <div className="w-[58%] mt-12">
@@ -202,13 +104,14 @@ function FullRow({ block }: { block: FullBlock }) {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
-      className="relative w-full aspect-[16/7] overflow-hidden mb-16">
+      className="relative w-full aspect-16/7 overflow-hidden mb-16">
       <Link href="/work" className="group block h-full">
         <Image
           src={block.src}
           alt={block.alt}
           fill
           sizes="100vw"
+          quality={100}
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
       </Link>
@@ -216,11 +119,57 @@ function FullRow({ block }: { block: FullBlock }) {
   );
 }
 
-const Gallery = () => {
+const Gallery = ({ items }: GalleryProps) => {
+  if (!items?.length) return null;
+
+  const capped = items.slice(0, 9);
+
+  // Build pair→full→pair→full blocks dynamically from Sanity items
+  const blocks: Block[] = [];
+  let i = 0;
+  let pairIndex = 0;
+  while (i < capped.length) {
+    if (i + 1 < capped.length) {
+      blocks.push({
+        type: "pair",
+        reversed: pairIndex % 2 === 1,
+        left: {
+          src: urlFor(capped[i]).width(2400).quality(100).url(),
+          alt: capped[i].alt ?? "",
+          title: "",
+          category: "",
+          href: "/work",
+          aspect: "aspect-[4/5]",
+        },
+        right: {
+          src: urlFor(capped[i + 1])
+            .width(2400)
+            .quality(100)
+            .url(),
+          alt: capped[i + 1].alt ?? "",
+          title: "",
+          category: "",
+          href: "/work",
+          aspect: "aspect-[3/4]",
+        },
+      });
+      pairIndex++;
+      i += 2;
+    }
+    if (i < capped.length) {
+      blocks.push({
+        type: "full",
+        src: urlFor(capped[i]).width(2560).quality(100).url(),
+        alt: capped[i].alt ?? "",
+      });
+      i++;
+    }
+  }
+
   let pairCount = 0;
 
   return (
-    <section className="w-full px-4 pt-8 pb-24">
+    <section className="w-full px-10 pt-8 pb-24">
       {blocks.map((block, i) => {
         if (block.type === "pair") {
           const idx = pairCount++;
