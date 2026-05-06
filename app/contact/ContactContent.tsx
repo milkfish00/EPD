@@ -97,7 +97,7 @@ export default function ContactContent({ data, bgSrc }: ContactContentProps) {
 
               {/* Form */}
               <form
-                action="https://www.form-to-email.com/api/s/SGpjk3Lq8Dya"
+                action="https://www.form-to-email.com/api/s/obPJG3qjVMAV"
                 method="POST"
                 encType="multipart/form-data"
                 target="contact-frame"

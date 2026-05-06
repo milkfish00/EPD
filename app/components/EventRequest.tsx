@@ -83,7 +83,7 @@ export default function EventRequest({ data }: EventRequestProps) {
             </p>
 
             <form
-              action="https://www.form-to-email.com/api/s/SGpjk3Lq8Dya"
+              action="https://www.form-to-email.com/api/s/obPJG3qjVMAV"
               method="POST"
               encType="multipart/form-data"
               target="contact-frame"

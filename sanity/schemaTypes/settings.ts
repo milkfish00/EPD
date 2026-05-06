@@ -10,6 +10,7 @@ export const settings = defineType({
   groups: [
     { name: "general", title: "General", default: true },
     { name: "social", title: "Social & Contact" },
+    { name: "colors", title: "Colors" },
     { name: "seo", title: "SEO" },
   ],
 
@@ -27,6 +28,16 @@ export const settings = defineType({
       title: "Site Tagline",
       type: "string",
       group: "general",
+    }),
+
+    // ── Colors ────────────────────────────────────────────────────────────
+    defineField({
+      name: "footerColor",
+      title: "Footer Background Color",
+      type: "string",
+      group: "colors",
+      initialValue: "#222f2d",
+      description: "CSS color value, e.g. #222f2d or rgb(34,47,45)",
     }),
 
     // ── Social media ──────────────────────────────────────────────────────

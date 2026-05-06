@@ -10,6 +10,7 @@ type ClientLayoutProps = {
   instagramUrl?: string | null;
   facebookUrl?: string | null;
   pinterestUrl?: string | null;
+  footerColor?: string | null;
 };
 
 export default function ClientLayout({
@@ -17,6 +18,7 @@ export default function ClientLayout({
   instagramUrl,
   facebookUrl,
   pinterestUrl,
+  footerColor,
 }: ClientLayoutProps) {
   const pathname = usePathname();
   const isStudio = pathname?.startsWith("/studio");
@@ -30,6 +32,7 @@ export default function ClientLayout({
           instagramUrl={instagramUrl}
           facebookUrl={facebookUrl}
           pinterestUrl={pinterestUrl}
+          footerColor={footerColor}
         />
       )}
     </>

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const body = await req.formData();
 
-  const res = await fetch("https://www.form-to-email.com/api/s/SGpjk3Lq8Dya", {
+  const res = await fetch("https://www.form-to-email.com/api/s/obPJG3qjVMAV", {
     method: "POST",
     body,
   });

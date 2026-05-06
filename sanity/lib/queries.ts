@@ -82,6 +82,7 @@ export type SettingsData = {
   pinterestUrl?: string;
   email?: string;
   phone?: string;
+  footerColor?: string;
 };
 
 // ── GROQ Queries ──────────────────────────────────────────────────────────────
@@ -158,7 +159,8 @@ export const SETTINGS_QUERY = `
     facebookUrl,
     pinterestUrl,
     email,
-    phone
+    phone,
+    footerColor
   }
 `;
 
