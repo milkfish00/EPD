@@ -1,0 +1,446 @@
+[
+  {
+    "fields": [
+      {
+        "initialValue": "Home",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Page Title (internal)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heroImage",
+        "type": "image",
+        "title": "Hero Background Image"
+      },
+      {
+        "description": "Large text displayed over the hero image",
+        "name": "heroHeadline",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Large statement headline in the about section",
+        "name": "aboutStatement",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "aboutImage",
+        "type": "image",
+        "title": "About Section Image"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Secondary text in the right column of the about section",
+        "name": "aboutBody",
+        "type": "text",
+        "title": "About Body Text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "eventRequestImage",
+        "type": "image",
+        "title": "Event Request Background Image"
+      },
+      {
+        "initialValue": "Inquiry Form",
+        "name": "eventRequestHeading",
+        "type": "string"
+      },
+      {
+        "rows": 2,
+        "initialValue": "Please complete this form and a member of our team will be in touch.",
+        "name": "eventRequestSubheading",
+        "type": "text"
+      },
+      {
+        "name": "seoTitle",
+        "type": "string",
+        "title": "Meta Title"
+      },
+      {
+        "rows": 2,
+        "name": "seoDescription",
+        "type": "text",
+        "title": "Meta Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "seoImage",
+        "type": "image",
+        "title": "Social Share Image"
+      }
+    ],
+    "name": "homePage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Gallery",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Page Title (internal)"
+      },
+      {
+        "initialValue": "Our Work",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heading",
+        "type": "string",
+        "title": "Page Heading"
+      },
+      {
+        "initialValue": "Wedding & Event Floral Design",
+        "name": "subheading",
+        "type": "string",
+        "title": "Page Subheading"
+      },
+      {
+        "options": {
+          "layout": "grid"
+        },
+        "description": "Drag and drop to reorder. Click \"Add item\" to bulk-upload.",
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "items",
+        "type": "array",
+        "title": "Gallery Items"
+      },
+      {
+        "name": "seoTitle",
+        "type": "string",
+        "title": "Meta Title"
+      },
+      {
+        "rows": 2,
+        "name": "seoDescription",
+        "type": "text",
+        "title": "Meta Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "seoImage",
+        "type": "image",
+        "title": "Social Share Image"
+      }
+    ],
+    "name": "galleryPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Contact",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Page Title (internal)"
+      },
+      {
+        "initialValue": "Get in Touch",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "heading",
+        "type": "string",
+        "title": "Page Heading"
+      },
+      {
+        "name": "subheading",
+        "type": "string",
+        "title": "Page Subheading"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "title": "Email Address"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "Phone Number"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "title": "Location / Address"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "backgroundImage",
+        "type": "image"
+      },
+      {
+        "name": "seoTitle",
+        "type": "string",
+        "title": "Meta Title"
+      },
+      {
+        "rows": 2,
+        "name": "seoDescription",
+        "type": "text",
+        "title": "Meta Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "seoImage",
+        "type": "image",
+        "title": "Social Share Image"
+      }
+    ],
+    "name": "contactPage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Emily Paige Designs",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "siteName",
+        "type": "string"
+      },
+      {
+        "name": "siteTagline",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "instagramUrl",
+        "type": "url",
+        "title": "Instagram URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "facebookUrl",
+        "type": "url",
+        "title": "Facebook URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "pinterestUrl",
+        "type": "url",
+        "title": "Pinterest URL"
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "title": "Contact Email"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "Contact Phone"
+      },
+      {
+        "description": "Used when a page does not have its own SEO title",
+        "name": "defaultSeoTitle",
+        "type": "string",
+        "title": "Default Meta Title"
+      },
+      {
+        "rows": 2,
+        "description": "Used when a page does not have its own SEO description",
+        "name": "defaultSeoDescription",
+        "type": "text",
+        "title": "Default Meta Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Fallback social sharing image for all pages",
+        "name": "defaultOgImage",
+        "type": "image",
+        "title": "Default Social Share Image"
+      }
+    ],
+    "name": "settings",
+    "type": "document",
+    "title": "Site Settings"
+  }
+]

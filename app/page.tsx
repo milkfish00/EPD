@@ -8,10 +8,13 @@ import { HOME_PAGE_QUERY, GALLERY_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { HomePageData, GalleryPageData } from "@/sanity/lib/queries";
 
 const page = async () => {
-  const [{ data }, { data: galleryData }] = await Promise.all([
-    sanityFetch<HomePageData | null>({ query: HOME_PAGE_QUERY }),
-    sanityFetch<GalleryPageData | null>({ query: GALLERY_PAGE_QUERY }),
+  const [homeResult, galleryResult] = await Promise.all([
+    sanityFetch({ query: HOME_PAGE_QUERY }),
+    sanityFetch({ query: GALLERY_PAGE_QUERY }),
   ]);
+
+  const data = homeResult.data as HomePageData | null;
+  const galleryData = galleryResult.data as GalleryPageData | null;
 
   return (
     <>
