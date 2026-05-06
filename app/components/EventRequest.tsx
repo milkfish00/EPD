@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/queries";
 import type { HomePageData } from "@/sanity/lib/queries";
@@ -22,16 +22,22 @@ export default function EventRequest({ data }: EventRequestProps) {
   const [form, setForm] = useState<EventForm>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const hasSubmitted = useRef(false);
 
   const set = (key: keyof EventForm) => (val: string) =>
     setForm((p) => ({ ...p, [key]: val }));
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    hasSubmitted.current = true;
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setSubmitting(false);
-    setSubmitted(true);
+  };
+
+  const handleIframeLoad = () => {
+    if (hasSubmitted.current) {
+      hasSubmitted.current = false;
+      setSubmitting(false);
+      setSubmitted(true);
+    }
   };
 
   const bgSrc = data?.eventRequestImage
@@ -53,7 +59,7 @@ export default function EventRequest({ data }: EventRequestProps) {
       )}
       <div className="absolute bottom-0 right-0 z-10 p-14">
         {submitted ? (
-          <div className="bg-[#f7f7f7] p-12">
+          <div className="bg-[#f7f7f7] w-160 p-12 min-h-96 flex flex-col justify-center">
             <h2
               className="text-[clamp(1.8rem,3vw,2.8rem)] text-[#4d4032]/80 font-light mb-3"
               style={{ fontFamily: "var(--font-heading)" }}>
@@ -64,7 +70,7 @@ export default function EventRequest({ data }: EventRequestProps) {
             </p>
           </div>
         ) : (
-          <div className="bg-[#f7f7f7] w-160 p-12">
+          <div className="bg-[#f7f7f7] w-160 p-12 min-h-96">
             <h2
               className="text-[clamp(1.8rem,3vw,2.8rem)] text-[#4d4032] font-light mb-2 leading-tight"
               style={{ fontFamily: "var(--font-heading)" }}>
@@ -76,29 +82,33 @@ export default function EventRequest({ data }: EventRequestProps) {
               {subheading}
             </p>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            <form
+              action="https://www.form-to-email.com/api/s/SGpjk3Lq8Dya"
+              method="POST"
+              encType="multipart/form-data"
+              target="contact-frame"
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-6">
+              {" "}
               <input
                 type="text"
+                name="name"
                 placeholder="Your name"
                 required
-                value={form.name}
-                onChange={(e) => set("name")(e.target.value)}
                 className={lineInput}
               />
               <input
                 type="email"
+                name="email"
                 placeholder="E-mail"
                 required
-                value={form.email}
-                onChange={(e) => set("email")(e.target.value)}
                 className={lineInput}
               />
               <textarea
+                name="message"
                 placeholder="Tell us about your event…"
                 required
                 rows={3}
-                value={form.message}
-                onChange={(e) => set("message")(e.target.value)}
                 className={`${lineInput} resize-none`}
               />
               <div className="flex justify-end pt-1">
@@ -113,6 +123,13 @@ export default function EventRequest({ data }: EventRequestProps) {
           </div>
         )}
       </div>
+      <iframe
+        name="contact-frame"
+        title="contact-form-response"
+        aria-hidden="true"
+        onLoad={handleIframeLoad}
+        style={{ display: "none" }}
+      />
     </section>
   );
 }
