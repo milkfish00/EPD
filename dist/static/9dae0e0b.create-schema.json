@@ -407,16 +407,6 @@
         "title": "Pinterest URL"
       },
       {
-        "name": "email",
-        "type": "string",
-        "title": "Contact Email"
-      },
-      {
-        "name": "phone",
-        "type": "string",
-        "title": "Contact Phone"
-      },
-      {
         "description": "Used when a page does not have its own SEO title",
         "name": "defaultSeoTitle",
         "type": "string",
