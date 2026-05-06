@@ -40,7 +40,7 @@ const Navbar = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center px-5 h-10 bg-[#f7f7f7]">
         {/* Left links — desktop only */}
         <div className="hidden md:flex items-center gap-8 flex-1">
-          <Link href="/" className={linkClass("/home")}>
+          <Link href="/" className={linkClass("/")}>
             Home
           </Link>
           <Link href="/work" className={linkClass("/work")}>
@@ -107,7 +107,7 @@ const Navbar = () => {
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className="text-2xl tracking-[0.2em] uppercase text-[#4d4032]/80 hover:text-[#4d4032] transition-colors"
+              className="text-4xl  uppercase text-[#4d4032]/80 hover:text-[#4d4032] transition-colors"
               style={{ fontFamily: "var(--font-heading)" }}>
               {label}
             </Link>

@@ -5,11 +5,19 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import PageTransition from "./PageTransition";
 
+type ClientLayoutProps = {
+  children: React.ReactNode;
+  instagramUrl?: string | null;
+  facebookUrl?: string | null;
+  pinterestUrl?: string | null;
+};
+
 export default function ClientLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  instagramUrl,
+  facebookUrl,
+  pinterestUrl,
+}: ClientLayoutProps) {
   const pathname = usePathname();
   const isStudio = pathname?.startsWith("/studio");
 
@@ -17,7 +25,13 @@ export default function ClientLayout({
     <>
       {!isStudio && <Navbar />}
       <PageTransition>{children}</PageTransition>
-      {!isStudio && <Footer />}
+      {!isStudio && (
+        <Footer
+          instagramUrl={instagramUrl}
+          facebookUrl={facebookUrl}
+          pinterestUrl={pinterestUrl}
+        />
+      )}
     </>
   );
 }

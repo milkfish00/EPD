@@ -49,20 +49,6 @@ export const settings = defineType({
       group: "social",
     }),
 
-    // ── Contact info ──────────────────────────────────────────────────────
-    defineField({
-      name: "email",
-      title: "Contact Email",
-      type: "string",
-      group: "social",
-    }),
-    defineField({
-      name: "phone",
-      title: "Contact Phone",
-      type: "string",
-      group: "social",
-    }),
-
     // ── Default SEO ───────────────────────────────────────────────────────
     defineField({
       name: "defaultSeoTitle",
