@@ -134,7 +134,7 @@ const Gallery = ({ items }: GalleryProps) => {
         type: "pair",
         reversed: pairIndex % 2 === 1,
         left: {
-          src: urlFor(capped[i]).width(2400).quality(100).url(),
+          src: urlFor(capped[i]).width(3840).quality(100).url(),
           alt: capped[i].alt ?? "",
           title: "",
           category: "",
@@ -143,7 +143,7 @@ const Gallery = ({ items }: GalleryProps) => {
         },
         right: {
           src: urlFor(capped[i + 1])
-            .width(2400)
+            .width(3840)
             .quality(100)
             .url(),
           alt: capped[i + 1].alt ?? "",
@@ -159,7 +159,7 @@ const Gallery = ({ items }: GalleryProps) => {
     if (i < capped.length) {
       blocks.push({
         type: "full",
-        src: urlFor(capped[i]).width(2560).quality(100).url(),
+        src: urlFor(capped[i]).width(3840).quality(100).url(),
         alt: capped[i].alt ?? "",
       });
       i++;

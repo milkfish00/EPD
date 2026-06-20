@@ -19,7 +19,7 @@ export function buildMetadata(
 
   const rawImage = page?.seoImage ?? settings?.defaultOgImage ?? null;
   const ogImageUrl = rawImage
-    ? urlFor(rawImage).width(1200).height(630).quality(90).url()
+    ? urlFor(rawImage).width(1200).height(630).quality(100).url()
     : undefined;
 
   return {

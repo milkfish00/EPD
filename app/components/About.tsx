@@ -26,7 +26,7 @@ const About = ({ data }: AboutProps) => {
         {data?.aboutImage && (
           <div className="relative w-full md:w-[58%] aspect-video overflow-hidden">
             <Image
-              src={urlFor(data.aboutImage).width(2400).quality(100).url()}
+              src={urlFor(data.aboutImage).width(3840).quality(100).url()}
               alt="Emily Paige Designs floral arrangement"
               fill
               quality={100}

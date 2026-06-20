@@ -76,6 +76,7 @@ export default function ContactContent({ data, bgSrc }: ContactContentProps) {
                   src={bgSrc}
                   alt="Emily Paige Designs"
                   fill
+                  quality={100}
                   className="object-cover object-center"
                   priority
                 />

@@ -12,7 +12,7 @@ const Hero = ({ data }: HeroProps) => {
     <section className="relative w-full h-100 md:h-[97vh] overflow-hidden">
       {data?.heroImage && (
         <Image
-          src={urlFor(data.heroImage).width(2560).quality(100).url()}
+          src={urlFor(data.heroImage).width(3840).quality(100).url()}
           alt="Emily Paige Designs"
           fill
           priority

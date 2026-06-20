@@ -41,7 +41,7 @@ export default function EventRequest({ data }: EventRequestProps) {
   };
 
   const bgSrc = data?.eventRequestImage
-    ? urlFor(data.eventRequestImage).width(2560).quality(100).url()
+    ? urlFor(data.eventRequestImage).width(3840).quality(100).url()
     : null;
 
   const heading = data?.eventRequestHeading;
@@ -54,6 +54,7 @@ export default function EventRequest({ data }: EventRequestProps) {
           src={bgSrc}
           alt="Floral background"
           fill
+          quality={100}
           className="object-cover object-center brightness-[0.5] saturate-0"
         />
       )}

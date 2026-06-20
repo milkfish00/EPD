@@ -329,6 +329,13 @@
         "type": "string"
       },
       {
+        "initialValue": "#222f2d",
+        "description": "CSS color value, e.g. #222f2d or rgb(34,47,45)",
+        "name": "footerColor",
+        "type": "string",
+        "title": "Footer Background Color"
+      },
+      {
         "validation": [
           {
             "rules": [

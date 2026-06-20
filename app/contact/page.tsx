@@ -25,7 +25,7 @@ export default async function ContactPage() {
   const pageData = data as ContactPageData | null;
 
   const bgSrc = pageData?.backgroundImage
-    ? urlFor(pageData.backgroundImage).width(2400).quality(100).url()
+    ? urlFor(pageData.backgroundImage).width(3840).quality(100).url()
     : null;
 
   return <ContactContent data={pageData} bgSrc={bgSrc} />;
