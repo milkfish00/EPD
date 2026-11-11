@@ -37,6 +37,7 @@ const page = async () => {
   const images =
     typedData?.items?.map((item: GalleryItem) => ({
       src: urlFor(item).width(3840).quality(100).url(),
+      lqip: item.lqip,
       alt: item.alt ?? "",
       key: item._key,
     })) ?? [];

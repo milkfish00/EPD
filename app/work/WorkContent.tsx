@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import SmoothImage from "@/app/components/SmoothImage";
 import { motion } from "framer-motion";
 
-type WorkImage = { src: string; alt: string; key: string };
+type WorkImage = { src: string; lqip?: string; alt: string; key: string };
 
 type WorkContentProps = {
   heading?: string;
@@ -38,34 +38,32 @@ export default function WorkContent({
       </div>
 
       {/* Image grid */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-3 px-5 my-3">
-        {images.map(({ src, alt, key }, i) => (
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 px-5 my-3">
+        {images.map(({ src, lqip, alt, key }, i) => (
           <motion.div
             key={key}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{
               duration: 0.7,
-              delay: 0.15 + i * 0.07,
+              delay: (i % 3) * 0.08,
               ease: [0.25, 0.1, 0.25, 1],
             }}
             className="relative aspect-4/5 overflow-hidden group">
-            <Image
+            <SmoothImage
               src={src}
+              lqip={lqip}
               alt={alt}
               fill
-              priority={i < 4}
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority={i < 3}
+              sizes="(max-width: 1024px) 100vw, 33vw"
               quality={100}
               className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </main>
   );
 }

@@ -2,9 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["cdn.sanity.io"],
+    loader: "custom",
+    loaderFile: "./sanity/lib/imageLoader.ts",
+    qualities: [75, 90, 100],
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
-  /* config options here */
 };
 
 export default nextConfig;

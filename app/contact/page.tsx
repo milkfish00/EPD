@@ -28,5 +28,11 @@ export default async function ContactPage() {
     ? urlFor(pageData.backgroundImage).width(3840).quality(100).url()
     : null;
 
-  return <ContactContent data={pageData} bgSrc={bgSrc} />;
+  return (
+    <ContactContent
+      data={pageData}
+      bgSrc={bgSrc}
+      bgLqip={pageData?.backgroundImage?.lqip}
+    />
+  );
 }

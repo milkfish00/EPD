@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
+import SmoothImage from "@/app/components/SmoothImage";
 import type { ContactPageData } from "@/sanity/lib/queries";
 
 const inputClass =
@@ -10,9 +10,14 @@ const inputClass =
 type ContactContentProps = {
   data: ContactPageData | null;
   bgSrc: string | null;
+  bgLqip?: string;
 };
 
-export default function ContactContent({ data, bgSrc }: ContactContentProps) {
+export default function ContactContent({
+  data,
+  bgSrc,
+  bgLqip,
+}: ContactContentProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const hasSubmitted = useRef(false);
@@ -72,10 +77,12 @@ export default function ContactContent({ data, bgSrc }: ContactContentProps) {
           <div className="flex h-[calc(100vh-5rem)]">
             <div className="hidden md:block md:w-1/2 relative">
               {bgSrc && (
-                <Image
+                <SmoothImage
                   src={bgSrc}
+                  lqip={bgLqip}
                   alt="Emily Paige Designs"
                   fill
+                  sizes="(max-width: 767px) 1px, 50vw"
                   quality={100}
                   className="object-cover object-center"
                   priority
@@ -85,7 +92,7 @@ export default function ContactContent({ data, bgSrc }: ContactContentProps) {
             <div className="flex-1 bg-[#f2ece2] flex flex-col items-center justify-center px-8 lg:px-14 py-10">
               <div className="text-center mb-6">
                 <h1
-                  className="text-5xl text-[#4d4032]/80 font-light leading-snug tracking-tight"
+                  className="text-5xl text-[#2f4a32] font-light leading-snug tracking-tight"
                   style={{ fontFamily: "var(--font-heading)" }}>
                   {heading}
                 </h1>

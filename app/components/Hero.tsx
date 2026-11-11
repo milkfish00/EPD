@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import SmoothImage from "./SmoothImage";
 import { urlFor } from "@/sanity/lib/queries";
 import type { HomePageData } from "@/sanity/lib/queries";
 
@@ -11,11 +11,14 @@ const Hero = ({ data }: HeroProps) => {
   return (
     <section className="relative w-full h-100 md:h-[97vh] overflow-hidden">
       {data?.heroImage && (
-        <Image
+        <SmoothImage
           src={urlFor(data.heroImage).width(3840).quality(100).url()}
+          lqip={data.heroImage.lqip}
+          placeholderClassName="mx-5 brightness-[0.82] saturate-[0.75]"
           alt="Emily Paige Designs"
           fill
           priority
+          sizes="100vw"
           quality={100}
           className="object-cover object-center brightness-[0.82] saturate-[0.75] px-5"
         />

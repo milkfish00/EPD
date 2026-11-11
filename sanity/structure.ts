@@ -1,11 +1,18 @@
 import type { StructureResolver } from "sanity/structure";
-import { HomeIcon, ImageIcon, EnvelopeIcon, CogIcon } from "@sanity/icons";
+import {
+  HomeIcon,
+  ImageIcon,
+  EnvelopeIcon,
+  CogIcon,
+  StarIcon,
+} from "@sanity/icons";
 
 // Singleton document types (only one document of each type should exist)
 const singletons = [
   "homePage",
   "aboutPage",
   "galleryPage",
+  "holidayPage",
   "contactPage",
   "settings",
 ];
@@ -26,6 +33,13 @@ export const structure: StructureResolver = (S) =>
         .icon(ImageIcon)
         .child(
           S.document().schemaType("galleryPage").documentId("galleryPage"),
+        ),
+      S.listItem()
+        .title("Holiday Page")
+        .id("holidayPage")
+        .icon(StarIcon)
+        .child(
+          S.document().schemaType("holidayPage").documentId("holidayPage"),
         ),
       S.listItem()
         .title("Contact Page")

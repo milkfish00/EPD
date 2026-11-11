@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import Image from "next/image";
+import SmoothImage from "./SmoothImage";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { urlFor } from "@/sanity/lib/queries";
@@ -12,6 +12,7 @@ type GalleryProps = {
 
 type GalleryImage = {
   src: string;
+  lqip?: string;
   alt: string;
   title: string;
   category: string;
@@ -29,6 +30,7 @@ type PairBlock = {
 type FullBlock = {
   type: "full";
   src: string;
+  lqip?: string;
   alt: string;
 };
 
@@ -50,8 +52,9 @@ function GalleryImage({ item, index }: { item: GalleryImage; index: number }) {
       }}>
       <Link href={item.href} className="group block">
         <div className={`relative w-full ${item.aspect} overflow-hidden`}>
-          <Image
+          <SmoothImage
             src={item.src}
+            lqip={item.lqip}
             alt={item.alt}
             fill
             sizes="(max-width: 768px) 100vw, 58vw"
@@ -106,8 +109,9 @@ function FullRow({ block }: { block: FullBlock }) {
       transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
       className="relative w-full aspect-16/7 overflow-hidden mb-16">
       <Link href="/work" className="group block h-full">
-        <Image
+        <SmoothImage
           src={block.src}
+          lqip={block.lqip}
           alt={block.alt}
           fill
           sizes="100vw"
@@ -135,6 +139,7 @@ const Gallery = ({ items }: GalleryProps) => {
         reversed: pairIndex % 2 === 1,
         left: {
           src: urlFor(capped[i]).width(3840).quality(100).url(),
+          lqip: capped[i].lqip,
           alt: capped[i].alt ?? "",
           title: "",
           category: "",
@@ -146,6 +151,7 @@ const Gallery = ({ items }: GalleryProps) => {
             .width(3840)
             .quality(100)
             .url(),
+          lqip: capped[i + 1].lqip,
           alt: capped[i + 1].alt ?? "",
           title: "",
           category: "",
@@ -160,6 +166,7 @@ const Gallery = ({ items }: GalleryProps) => {
       blocks.push({
         type: "full",
         src: urlFor(capped[i]).width(3840).quality(100).url(),
+        lqip: capped[i].lqip,
         alt: capped[i].alt ?? "",
       });
       i++;
@@ -169,7 +176,7 @@ const Gallery = ({ items }: GalleryProps) => {
   let pairCount = 0;
 
   return (
-    <section className="w-full px-10 pt-8 pb-24">
+    <section className="w-full px-4 pt-8 pb-24">
       {blocks.map((block, i) => {
         if (block.type === "pair") {
           const idx = pairCount++;

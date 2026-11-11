@@ -3,8 +3,10 @@ import { homePage } from "./homePage";
 import { aboutPage } from "./aboutPage";
 import { galleryPage } from "./galleryPage";
 import { contactPage } from "./contactPage";
+import { holidayPage } from "./holidayPage";
+import { holidaySection } from "./holidaySection";
 import { settings } from "./settings";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [homePage, galleryPage, contactPage, settings],
+  types: [homePage, galleryPage, holidayPage, holidaySection, contactPage, settings],
 };

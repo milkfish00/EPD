@@ -5,10 +5,17 @@ import { urlFor } from "./image";
 const HOME_ID = "homePage";
 const ABOUT_ID = "aboutPage";
 const GALLERY_ID = "galleryPage";
+const HOLIDAY_ID = "holidayPage";
 const CONTACT_ID = "contactPage";
 const SETTINGS_ID = "settings";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
+
+export type SanityImage = {
+  asset: { _ref: string };
+  /** Tiny base64 preview shown while the full image loads. */
+  lqip?: string;
+};
 
 export type SeoData = {
   seoTitle?: string;
@@ -17,12 +24,12 @@ export type SeoData = {
 };
 
 export type HomePageData = {
-  heroImage: { asset: { _ref: string } };
+  heroImage: SanityImage;
   heroHeadline?: string;
   aboutStatement: string;
-  aboutImage: { asset: { _ref: string } };
+  aboutImage: SanityImage;
   aboutBody: string;
-  eventRequestImage?: { asset: { _ref: string } };
+  eventRequestImage?: SanityImage;
   eventRequestHeading?: string;
   eventRequestSubheading?: string;
   seoTitle?: string;
@@ -44,6 +51,7 @@ export type AboutPageData = {
 export type GalleryItem = {
   _key: string;
   asset: { _ref: string };
+  lqip?: string;
   alt?: string;
   caption?: string;
 };
@@ -57,6 +65,24 @@ export type GalleryPageData = {
   seoImage?: { asset: { _ref: string } };
 };
 
+export type HolidaySection = {
+  title?: string;
+  description?: string;
+  images?: GalleryItem[];
+};
+
+export type HolidayPageData = {
+  heading: string;
+  subheading?: string;
+  door?: HolidaySection;
+  mantle?: HolidaySection;
+  stairs?: HolidaySection;
+  accent?: HolidaySection;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImage?: { asset: { _ref: string } };
+};
+
 export type ContactPageData = {
   heading: string;
   subheading?: string;
@@ -65,7 +91,7 @@ export type ContactPageData = {
   location?: string;
   formHeading?: string;
   formSubheading?: string;
-  backgroundImage?: { asset: { _ref: string } };
+  backgroundImage?: SanityImage;
   seoTitle?: string;
   seoDescription?: string;
   seoImage?: { asset: { _ref: string } };
@@ -89,12 +115,12 @@ export type SettingsData = {
 
 export const HOME_PAGE_QUERY = `
   *[_type == "homePage" && _id == "${HOME_ID}"][0]{
-    heroImage,
+    heroImage{ ..., "lqip": asset->metadata.lqip },
     heroHeadline,
     aboutStatement,
-    aboutImage,
+    aboutImage{ ..., "lqip": asset->metadata.lqip },
     aboutBody,
-    eventRequestImage,
+    eventRequestImage{ ..., "lqip": asset->metadata.lqip },
     eventRequestHeading,
     eventRequestSubheading,
     seoTitle,
@@ -123,9 +149,24 @@ export const GALLERY_PAGE_QUERY = `
     items[]{
       _key,
       asset,
+      "lqip": asset->metadata.lqip,
       alt,
       caption
     },
+    seoTitle,
+    seoDescription,
+    seoImage
+  }
+`;
+
+export const HOLIDAY_PAGE_QUERY = `
+  *[_type == "holidayPage" && _id == "${HOLIDAY_ID}"][0]{
+    heading,
+    subheading,
+    door{ title, description, images[]{ _key, asset, hotspot, crop, alt, "lqip": asset->metadata.lqip } },
+    mantle{ title, description, images[]{ _key, asset, hotspot, crop, alt, "lqip": asset->metadata.lqip } },
+    stairs{ title, description, images[]{ _key, asset, hotspot, crop, alt, "lqip": asset->metadata.lqip } },
+    accent{ title, description, images[]{ _key, asset, hotspot, crop, alt, "lqip": asset->metadata.lqip } },
     seoTitle,
     seoDescription,
     seoImage
@@ -141,7 +182,7 @@ export const CONTACT_PAGE_QUERY = `
     location,
     formHeading,
     formSubheading,
-    backgroundImage,
+    backgroundImage{ ..., "lqip": asset->metadata.lqip },
     seoTitle,
     seoDescription,
     seoImage
@@ -176,6 +217,10 @@ export async function getAboutPage(): Promise<AboutPageData | null> {
 
 export async function getGalleryPage(): Promise<GalleryPageData | null> {
   return client.fetch<GalleryPageData | null>(GALLERY_PAGE_QUERY);
+}
+
+export async function getHolidayPage(): Promise<HolidayPageData | null> {
+  return client.fetch<HolidayPageData | null>(HOLIDAY_PAGE_QUERY);
 }
 
 export async function getContactPage(): Promise<ContactPageData | null> {

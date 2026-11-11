@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
+import SmoothImage from "./SmoothImage";
 import { urlFor } from "@/sanity/lib/queries";
 import type { HomePageData } from "@/sanity/lib/queries";
 
@@ -50,10 +50,13 @@ export default function EventRequest({ data }: EventRequestProps) {
   return (
     <section className="relative w-full h-180 hidden md:block">
       {bgSrc && (
-        <Image
+        <SmoothImage
           src={bgSrc}
+          lqip={data?.eventRequestImage?.lqip}
+          placeholderClassName="brightness-[0.5] saturate-0"
           alt="Floral background"
           fill
+          sizes="100vw"
           quality={100}
           className="object-cover object-center brightness-[0.5] saturate-0"
         />
