@@ -37,7 +37,8 @@ export const holidayPage = defineType({
     // ── Page header ───────────────────────────────────────────────────────
     defineField({
       name: "heading",
-      title: "Page Heading",
+      title: "Main Header Text",
+      description: 'The large title shown in the banner at the top of the page (e.g. "Holiday").',
       type: "string",
       initialValue: "Holiday",
       group: "content",
@@ -49,6 +50,67 @@ export const holidayPage = defineType({
       type: "string",
       initialValue: "Seasonal Floral Design",
       group: "content",
+    }),
+
+    // ── Banner background ─────────────────────────────────────────────────
+    defineField({
+      name: "bannerBackgroundType",
+      title: "Banner Background",
+      description:
+        "Choose a solid colour or an image behind the main header. Leave unset for the default light background with dark text.",
+      type: "string",
+      group: "content",
+      options: {
+        list: [
+          { title: "Colour", value: "color" },
+          { title: "Image", value: "image" },
+        ],
+        layout: "radio",
+        direction: "horizontal",
+      },
+    }),
+    defineField({
+      name: "bannerBackgroundColor",
+      title: "Banner Background Colour",
+      description:
+        "Hex colour, e.g. #A50F1E (holiday red). Leave empty for the default light background.",
+      type: "string",
+      group: "content",
+      hidden: ({ parent }) => parent?.bannerBackgroundType === "image",
+      validation: (rule) =>
+        rule.regex(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/, {
+          name: "hex colour",
+        }),
+    }),
+    defineField({
+      name: "bannerBackgroundImage",
+      title: "Banner Background Image",
+      type: "image",
+      group: "content",
+      options: { hotspot: true },
+      hidden: ({ parent }) => parent?.bannerBackgroundType !== "image",
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+        }),
+      ],
+    }),
+    defineField({
+      name: "bannerTextColor",
+      title: "Banner Text Colour",
+      description:
+        "If unset: white over a colour/image background, dark over the default background.",
+      type: "string",
+      group: "content",
+      options: {
+        list: [
+          { title: "Light (for dark/red backgrounds)", value: "light" },
+          { title: "Dark (for light backgrounds)", value: "dark" },
+        ],
+        layout: "radio",
+      },
     }),
 
     // ── Category sections (fixed order) ───────────────────────────────────

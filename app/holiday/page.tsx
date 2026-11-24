@@ -13,7 +13,10 @@ import type {
   HomePageData,
   SettingsData,
 } from "@/sanity/lib/queries";
-import HolidayContent, { type HolidaySectionView } from "./HolidayContent";
+import HolidayContent, {
+  type HolidayBanner,
+  type HolidaySectionView,
+} from "./HolidayContent";
 import EventRequest from "@/app/components/EventRequest";
 import { buildMetadata } from "@/sanity/lib/seo";
 
@@ -76,11 +79,32 @@ const page = async () => {
     toView(key, fallbackTitle, typedData?.[key]),
   ).filter((s): s is HolidaySectionView => s !== null);
 
+  const bannerImg = typedData?.bannerBackgroundImage;
+  const useImage =
+    typedData?.bannerBackgroundType === "image" && !!bannerImg?.asset;
+  const bannerColor = useImage
+    ? undefined
+    : typedData?.bannerBackgroundColor?.trim() || undefined;
+  const hasBackground = useImage || !!bannerColor;
+  const banner: HolidayBanner = {
+    // No colour/image chosen → original look (page background, dark text).
+    color: bannerColor,
+    image: useImage
+      ? {
+          src: urlFor(bannerImg).width(2400).quality(90).url(),
+          lqip: bannerImg.lqip,
+          alt: bannerImg.alt ?? "",
+        }
+      : undefined,
+    textTone: typedData?.bannerTextColor ?? (hasBackground ? "light" : "dark"),
+  };
+
   return (
     <>
       <HolidayContent
-        heading={typedData?.heading ?? "Holiday"}
+        heading={typedData?.heading || "Holiday"}
         subheading={typedData?.subheading}
+        banner={banner}
         sections={sections}
       />
       <EventRequest data={homeData} />

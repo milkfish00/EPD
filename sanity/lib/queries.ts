@@ -74,6 +74,10 @@ export type HolidaySection = {
 export type HolidayPageData = {
   heading: string;
   subheading?: string;
+  bannerBackgroundType?: "color" | "image";
+  bannerBackgroundColor?: string;
+  bannerBackgroundImage?: SanityImage & { alt?: string };
+  bannerTextColor?: "light" | "dark";
   door?: HolidaySection;
   mantle?: HolidaySection;
   stairs?: HolidaySection;
@@ -163,6 +167,10 @@ export const HOLIDAY_PAGE_QUERY = `
   *[_type == "holidayPage" && _id == "${HOLIDAY_ID}"][0]{
     heading,
     subheading,
+    bannerBackgroundType,
+    bannerBackgroundColor,
+    bannerBackgroundImage{ ..., "lqip": asset->metadata.lqip },
+    bannerTextColor,
     door{ title, description, images[]{ _key, asset, hotspot, crop, alt, "lqip": asset->metadata.lqip } },
     mantle{ title, description, images[]{ _key, asset, hotspot, crop, alt, "lqip": asset->metadata.lqip } },
     stairs{ title, description, images[]{ _key, asset, hotspot, crop, alt, "lqip": asset->metadata.lqip } },

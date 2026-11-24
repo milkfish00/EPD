@@ -12,9 +12,16 @@ export type HolidaySectionView = {
   images: HolidayImage[];
 };
 
+export type HolidayBanner = {
+  color?: string;
+  image?: { src: string; lqip?: string; alt: string };
+  textTone: "light" | "dark";
+};
+
 type HolidayContentProps = {
   heading?: string;
   subheading?: string;
+  banner: HolidayBanner;
   sections: HolidaySectionView[];
 };
 
@@ -98,17 +105,43 @@ function Section({
 export default function HolidayContent({
   heading,
   subheading,
+  banner,
   sections,
 }: HolidayContentProps) {
+  const light = banner.textTone === "light";
+
   return (
     <main className="w-full bg-[#f7f7f7]">
       {/* Hero */}
-      <div className="relative flex flex-col items-center justify-center h-full py-30 md:py-50">
+      <div
+        className="relative flex flex-col items-center justify-center h-full py-30 md:py-50 overflow-hidden"
+        style={{ backgroundColor: banner.color }}>
+        {banner.image && (
+          <>
+            <SmoothImage
+              src={banner.image.src}
+              lqip={banner.image.lqip}
+              alt={banner.image.alt}
+              fill
+              priority
+              sizes="100vw"
+              quality={90}
+              className="object-cover object-center"
+            />
+            {/* Subtle scrim so the heading stays legible over photos */}
+            <div
+              aria-hidden
+              className={`absolute inset-0 ${light ? "bg-black/30" : "bg-white/30"}`}
+            />
+          </>
+        )}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="text-[clamp(3rem,8vw,8rem)] text-stone-800 font-light leading-none text-center"
+          className={`relative text-[clamp(3rem,8vw,8rem)] font-light leading-none text-center ${
+            light ? "text-white" : "text-stone-800"
+          }`}
           style={{ fontFamily: "var(--font-heading)" }}>
           {heading}
         </motion.h1>
@@ -117,7 +150,9 @@ export default function HolidayContent({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="absolute bottom-10 text-[0.6rem] tracking-[0.2em] uppercase text-stone-400">
+            className={`absolute bottom-10 text-[0.6rem] tracking-[0.2em] uppercase ${
+              light ? "text-white/75" : "text-stone-400"
+            }`}>
             {subheading}
           </motion.p>
         )}
